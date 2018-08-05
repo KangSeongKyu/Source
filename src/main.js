@@ -346,28 +346,62 @@ var render = function(){
 };
 ////////////////////////////////////////////////////////////////////////
 //키보드 이벤트//
+// var lastPt = null;
+// function init() {
+//         canvas.addEventListener("touchmove", draw, false);
+//         canvas.addEventListener("touchend", end, false);
+// }
 
-var lastPt = null;
-function init() {
-        canvas.addEventListener("touchmove", draw, false);
-        canvas.addEventListener("touchend", end, false);
+// function draw(e) {
+// 	e.preventDefault();
+// 	if(lastPt!=null) {
+// 	  ctx.beginPath();
+// 	  ctx.moveTo(lastPt.x, lastPt.y);
+// 	  ctx.lineTo(e.touches[0].pageX, e.touches[0].pageY);
+// 	  ctx.stroke();
+// 	}
+// 	lastPt = {x:e.touches[0].pageX, y:e.touches[0].pageY};
+// }
+
+// function end(e) {
+// 	e.preventDefault();
+// // Terminate touch path
+// 	lastPt=null;
+// }
+
+var bStartEvent = false;
+//touchstart 이벤트 발생 여부 플래그
+var bMoveEvent = false;
+//touchmove 이벤트 발생 여부 플래그
+ 
+function init(){
+    canvas.addEventListener("touchstart", this.onStart.bind(this), false);
+    canvas.addEventListener("touchmove", this.onMove.bind(this), false);
+    canvas.addEventListener("touchend", this.onEnd.bind(this), false);
 }
-
-function draw(e) {
-	e.preventDefault();
-	if(lastPt!=null) {
-	  ctx.beginPath();
-	  ctx.moveTo(lastPt.x, lastPt.y);
-	  ctx.lineTo(e.touches[0].pageX, e.touches[0].pageY);
-	  ctx.stroke();
-	}
-	lastPt = {x:e.touches[0].pageX, y:e.touches[0].pageY};
+ 
+function onStart(e) {
+    bStartEvent = true;
 }
-
-function end(e) {
-	e.preventDefault();
-// Terminate touch path
-	lastPt=null;
+ 
+function onMove(e) {
+    
+    if(!bStartEvent) {
+        return;
+        //touchstart 이벤트가 발생하지 않으면 처리하지 않는다.
+    }
+    bMoveEvent = true;
+    //touchMove 이벤트 발생 여부를 설정한다.
+}
+ 
+function onEnd(e) {
+    if(bStartEvent && !bMoveEvent) {
+        //클릭 이벤트로 판단한다.
+        alert('Tap!');
+    }
+    //각 플래그 값을 초기값으로 설정한다.
+    bStartEvent = false;
+    bMoveEvent = false;
 }
 
 addEventListener("keydown", function(e){
