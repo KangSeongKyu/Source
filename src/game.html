@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+	<title> kakao games</title>
+	<meta charset="utf-8">
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+  <style>
+    #myBack { position: absolute; margin: 0px 0px;}
+    #myCanvas {position: absolute; margin:60px 15px;}
+
+    .border-styles > #myBack{
+      border-width: 2px;
+      border-color: blue;
+    }
+    .border-styles > #myCanvas{
+      border-width: 2px;
+      border-color: blue;
+    }
+
+    .gameover {
+      position: absolute;
+      top: 300px;
+      left: 50px;
+      color: red;
+      font-family: Bombardment, sans-serif;
+      font-size: 70px;
+      cursor: default;
+      display: none;
+    }
+
+    .gameover span{
+      font-size: 20px;
+      cursor: pointer;
+      position: relative;
+      left: 50px;
+    }
+
+    .gameover span:hover {
+      color: orange;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="myBack" width="450" height="800" style="border-style:solid"></canvas>
+  <canvas id="myCanvas" width="420" height="660" style="border-style:groove"></canvas>
+  <div class="gameover" id="gameover">GAME OVER
+    <p><span id="restart" style="font-size: 40px; color: orange; left: 100px; border-style:groove">RESTART</span></p>
+    <p><span id="maxScore" style="font-size: 40px; color: yellow; left: 50px">0</span></p>
+  </div>
+  <script>
+    var ganvas = document.getElementById("myBack");
+    var gtx = ganvas.getContext('2d');
+    var baImage = new Image();
+    baImage.src = "image/back.png";
+    baImage.onload = function(){
+        if(score>=0&&score<70){
+          baImage.src = "https://github.com/KangSeongKyu/Source/tree/master/src/image/back3.png";
+        }else if(score>=70&&score<150){
+          baImage.src = "https://github.com/KangSeongKyu/Source/tree/master/src/image/back4.png";
+        }else{
+          baImage.src = "https://github.com/KangSeongKyu/Source/tree/master/src/image/back5.png";
+        }
+        gtx.drawImage(baImage,0,0,ganvas.width,ganvas.height);
+
+        gtx.strokeStyle = 'blue';
+        gtx.font = '50px Bombardment';
+        gtx.strokeText("LIVE ", 150, 50);
+        gtx.fillStyle = 'blue';
+        gtx.font = '50px Bombardment';
+        gtx.fillText(lives, 280, 50);
+
+        gtx.strokeStyle = 'blue';
+        gtx.font = '50px Bombardment';
+        gtx.strokeText("SCORE ", 110, 780);
+        gtx.fillStyle = 'blue';
+        gtx.font = '50px Bombardment';
+        gtx.fillText(score, 280, 780);//fixed
+    }
+    ////////////////////////////////////////////////////////////////////////
+    var canvas = document.getElementById("myCanvas");
+    var ctx = canvas.getContext('2d');
+    ////////////////////////////////////////////////////////////////////////
+    var tout; // setTimeout(detectCollision) 담는 변수
+    var max; // 실행해서 나왔던 게임점수 중 가장 고득점 뽑는 변수
+    var score = 0;
+    var lives = 2;
+    var maxScore = [];
+    var cnt = 15; // 키 갯수
+    var point=0; // 점수 
+    var speed = 5; // 레이저 속도
+    var ballpixel=60; // 볼(벽) 크기
+    var px=5; //캐릭터 최초 시작 x축 지점
+    var py=10; //캐릭터 최초 시작 y축 지점
+    ////////////////////////////////////////////////////////////////////////
+    var backImage = new Image(); // 배경화면
+     backImage.src = "https://github.com/KangSeongKyu/Source/tree/master/src/image/back.png";
+     backImage.onload = function(){
+        ctx.drawImage(backImage, 0, 0);
+     };
+    ////////////////////////////////////////////////////////////////////////
+     var ball = {}; // 캐릭터
+     ball.x = ballpixel*px;     
+     ball.y = ballpixel*py;     
+     var ballImage = new Image();
+     ballImage.src = "https://github.com/KangSeongKyu/Source/tree/master/src/image/ryan.png";
+     ballImage.onload = function(){
+       if(lives==2){
+           ctx.drawImage(ballImage, ball.x, ball.y, ballpixel, ballpixel);
+       }else{
+           ctx.drawImage(bombImage, ball.x, ball.y, ballpixel, ballpixel);
+       }
+
+     };
+    ////////////////////////////////////////////////////////////////////////
+     var wall = new Image(); // 장애물 벽
+     wall.src = "https://github.com/KangSeongKyu/Source/tree/master/src/image/wall.png";
+     wall.onload = function(){
+        for (var y = 0; y < canvas.height-ballpixel+1; y=y+(ballpixel*2)) { 
+           for (var x = 0; x < canvas.width-ballpixel+1; x=x+(ballpixel*2)) { 
+              ctx.drawImage(wall, x, y, ballpixel, ballpixel); 
+           }
+        } 
+     };
+    ////////////////////////////////////////////////////////////////////////
+    //캐릭터가 먹어야 하는 아이템 관련 코드
+    var key = {};
+    var keyImage = new Image();
+    keyImage.src = "https://github.com/KangSeongKyu/Source/tree/master/src/image/key.png";
+    var keyx = [60,60,60,60,60,180,180,180,180,180,300,300,300,300,300];
+    var keyy = [60,180,300,420,540,60,180,300,420,540,60,180,300,420,540];
+    function drawKey(a,b){
+      for(var i=0; i<a.length; i++){
+        if(a[i]==undefined&&b[i]==undefined){
+          i++;
+        }
+        if(a[i]==ball.x&&b[i]==ball.y){
+          point=point+10; //fixed
+          a.splice(i,1);
+          b.splice(i,1);
+          cnt--;
+        }
+      }
+      if(cnt==0){
+        keyx.push(60,60,60,60,60,180,180,180,180,180,300,300,300,300,300);
+        keyy.push(60,180,300,420,540,60,180,300,420,540,60,180,300,420,540);
+        cnt=15;
+      }
+      if(point>=150){//fixed
+        point=0;//fixed
+        speed=speed+1.5;
+      }
+      return a,b;
+    }
+    ////////////////////////////////////////////////////////////////////////
+    var ran = function(a, b){ // 레이저 나오는 구역 랜덤으로 추출할 함수
+        var ranNum = Math.floor(Math.random()*(b-a+1))+a;
+        return ranNum;
+    };
+    ////////////////////////////////////////////////////////////////////////
+    var laserA = {}; // 세로 레이저 관련 코드
+    laserA.x = -60;
+    laserA.y = -60;
+    function movelaserA(){
+      var aX = [60,180,300];
+      var rx = ran(0,aX.length);
+      ctx.drawImage(laserAImage, laserA.x, laserA.y += speed, 60, 120);
+        if(laserA.x < 0){
+           laserA.x = aX[rx];
+        }
+        if(laserA.x >420){
+           laserA.x = aX[rx];
+        }
+        if(laserA.y > canvas.height){
+           laserA.x = aX[rx];
+           laserA.y = -120;
+        }
+    }
+    var laserAImage = new Image();
+    laserAImage.src = "https://github.com/KangSeongKyu/Source/tree/master/src/image/laserC.png";
+    laserAImage.onload = function(){
+      laserAReady = true;
+    };        
+    ////////////////////////////////////////////////////////////////////////
+    var laserB = {}; //가로 레이저 관련 코드
+    laserB.x = -60;
+    laserB.y = -60;
+    function movelaserB(){
+      var aY = [60,180,300,420,540];
+        var ry = ran(0,aY.length);
+     
+        ctx.drawImage(laserBImage, laserB.x += speed, laserB.y, 120, 60);
+
+        if(laserB.y < 0){
+           laserB.y = aY[ry];
+        }
+        if(laserB.y >660){
+           laserB.y = aY[ry];
+        }
+        if(laserB.x > canvas.width){
+           laserB.x = -120;
+           laserB.y = aY[ry];
+        }
+    }
+    var laserBImage = new Image();
+    laserBImage.src = "https://github.com/KangSeongKyu/Source/tree/master/src/image/laserR.png";
+    laserBImage.onload = function(){
+      laserBReady = true;
+    };
+    ////////////////////////////////////////////////////////////////////////
+    var collision = {};
+    var bombImage = new Image();
+    bombImage.src = "https://github.com/KangSeongKyu/Source/tree/master/src/image/ryan2.png";
+    bombImage.onload = function(){
+      bool_bomb = true;
+    };
+    function drawBomb(){
+      ctx.drawImage(bombImage,ball.x,ball.y,ballpixel,ballpixel);
+    }
+    function detectCollision(){
+      a1 = laserA.y;
+      a2 = a1+60;
+      a3 = a1+120;
+      a4 = a2+120;
+
+      b1 = laserB.x;
+      b2 = b1+120;
+      b3 = b1+60;
+      b4 = b2+60;
+
+      if((ball.x>b1&&ball.x<b2&&ball.y==laserB.y)||
+        (ball.y>a1&&ball.y<=a3-10&&ball.x==laserA.x)){
+        bool_collision = true;
+        if(lives <= 0){
+          lives = 0;
+          gameOver();
+        } else {
+          lives--;
+        }
+      }
+      return lives;
+      
+    }
+    ////////////////////////////////////////////////////////////////////////
+    function gameOver(){
+      isGameOver = true;
+      bool_bomb = false;
+      keyx = [];
+      keyy = [];
+      cnt = 15;
+      point = 0;//fixed
+      maxScore.push(score);
+      var max = Math.max.apply(null, maxScore);
+      $("#maxScore").text("MAX SCORE: "+max);
+      clearTimeout(tout);
+      $("#gameover").css("display","block");
+    }
+    ////////////////////////////////////////////////////////////////////////
+    function restart(){
+      isGameOver = false;
+      bool_bomb = true;
+      lives=2;
+      score=0;
+      restartOpt();
+      $("#gameover").css("display","none");
+    }
+    function restartOpt(){
+      speed = 5;
+      laserA.x = -60;
+      laserA.y = -60;
+      laserB.x = -60;
+      laserB.y = -60;
+      ball.x = ballpixel*px;
+      ball.y = ballpixel*py;
+      keyx = [60,60,60,60,60,180,180,180,180,180,300,300,300,300,300];
+      keyy = [60,180,300,420,540,60,180,300,420,540,60,180,300,420,540];
+      for(var i=0; i<keyx.length; i++){
+        ctx.drawImage(keyImage, keyx[i]+15, keyy[i]+15, 30, 30);
+      } 
+    }
+    $("#restart").click(function(){
+      restart();
+    });
+    /////////////////////////////////////////////////////////////////////////
+    var isGameOver = false;
+    var bool_collision = false;
+    var bool_bomb = false;
+    var laserAReady = false;
+    var laserBReady = false;
+    var baReady = false;
+    var backReady = false;
+    var ballReady = false;
+    var wallReady = false;
+    var keyReady = false;
+
+    baImage.onload = function(){
+       baReady = true;
+    };
+
+    backImage.onload = function(){
+       backReady = true;
+    };
+    ballImage.onload = function(){
+       ballReady = true;
+    };
+    wall.onload = function(){
+       wallReady = true;
+    };
+    keyImage.onload = function(){
+      keyReady = true;
+    };
+    ////////////////////////////////////////////////////////////////////////
+    // render 함수 //
+    var lastup = 0;
+    var acDelta =0;
+    var msFrame = 1000;
+    var render = function(){
+      var delta = Date.now() - lastup;
+      if(acDelta > msFrame){
+        acDelta = 0;
+        if(baReady){
+          if(score>=0&&score<70){
+            baImage.src = "https://github.com/KangSeongKyu/Source/tree/master/src/image/back3.png";
+          }else if(score>=70&&score<150){
+            baImage.src = "https://github.com/KangSeongKyu/Source/tree/master/src/image/back4.png";
+          }else{
+            baImage.src = "https://github.com/KangSeongKyu/Source/tree/master/src/image/back5.png";
+          }
+          gtx.drawImage(baImage,0,0,ganvas.width,ganvas.height);
+
+          gtx.strokeStyle = 'blue';
+          gtx.font = '50px Bombardment';
+          gtx.strokeText("LIVE ", 150, 50);
+          gtx.fillStyle = 'blue';
+          gtx.font = '50px Bombardment';
+          gtx.fillText(lives, 280, 50);
+
+          gtx.strokeStyle = 'blue';
+          gtx.font = '50px Bombardment';
+          gtx.strokeText("SCORE ", 110, 780);
+          gtx.fillStyle = 'blue';
+          gtx.font = '50px Bombardment';
+          gtx.fillText(score, 280, 780);
+        }
+          if(backReady){
+               ctx.drawImage(backImage, 0, 0);
+          }
+          if(wallReady){
+              for (var y = 0; y < canvas.height-ballpixel+1; y=y+(ballpixel*2)) { 
+                  for (var x = 0; x < canvas.width-ballpixel+1; x=x+(ballpixel*2)) { 
+                      ctx.drawImage(wall, x, y, ballpixel, ballpixel); 
+                  }
+              } 
+          }
+          if(ballReady){
+          if(lives==2){
+               ctx.drawImage(ballImage, ball.x, ball.y, ballpixel, ballpixel);
+           }else{
+               ctx.drawImage(bombImage, ball.x, ball.y, ballpixel, ballpixel);
+           }
+          }
+          if(keyReady){
+            for(var i=0; i<keyx.length; i++){
+              ctx.drawImage(keyImage, keyx[i]+15, keyy[i]+15, 30, 30);
+            }
+          }
+          if(laserAReady){
+            movelaserA();
+          }
+          if(laserBReady){
+            movelaserB();
+          }
+        }else{
+          acDelta += delta;
+        }
+    };
+    ////////////////////////////////////////////////////////////////////////
+    //키보드 이벤트//
+    addEventListener("keydown", function(e){
+      if(38 === e.keyCode){
+         ball.y = ball.y-ballpixel;
+      }
+      if(40 === e.keyCode){
+         ball.y = ball.y+ballpixel;
+      }
+      if(37 === e.keyCode){
+         ball.x = ball.x-ballpixel;
+      }
+      if(39 === e.keyCode){
+         ball.x = ball.x+ballpixel;
+      }
+      if(ball.x <=0){
+         ball.x=0;
+      }
+      if(ball.x>=canvas.width-ballpixel){
+         ball.x = canvas.width-ballpixel;
+      }
+      if(ball.y <=0){
+         ball.y=0;
+      }
+      if(ball.y>=canvas.height-ballpixel){
+         ball.y = canvas.height-ballpixel;
+      }
+      for (var i = 0; i < canvas.height-ballpixel+1; i=i+(ballpixel*2)){ 
+         for (var j = 0; j < canvas.width-ballpixel+1; j=j+(ballpixel*2)){
+            if(ball.x==j && ball.y==i){
+               if(38===e.keyCode){ // up
+                  ball.x = ball.x;
+                  ball.y = ball.y+ballpixel;
+               }
+               if(40===e.keyCode){ //down
+                  ball.x = ball.x;
+                  ball.y = ball.y-ballpixel;
+               }
+               if(37===e.keyCode){ //left
+                  ball.x = ball.x+ballpixel;
+                  ball.y = ball.y;
+               }
+               if(39===e.keyCode){ //right
+                  ball.x = ball.x-ballpixel;
+                  ball.y = ball.y;
+               }
+            }
+         }
+      }
+      for(var i=0; i<keyx.length; i++){
+        if(ball.x == keyx[i]&& ball.y==keyy[i]){
+          drawKey(keyx, keyy);
+          score=score+10;
+        }
+      }
+      render();
+      
+    },false);
+    ////////////////////////////////////////////////////////////////////////
+    //게임 실행할 main 함수//
+    var main = function(){
+      
+      if(!isGameOver){
+        render();
+      }
+      if(lives<2){
+        tout = setTimeout("detectCollision()", 2000);
+      }else{
+        detectCollision();
+      }
+      requestAnimationFrame(main);
+    };
+
+    main();
+  </script>
+	</body>
+</html>
