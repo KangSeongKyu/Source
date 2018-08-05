@@ -38,7 +38,7 @@ var maxScore = [];
 var cnt = 15; // 키 갯수
 var point=0; // 점수 
 var speed = 5; // 레이저 속도
-var ballpixel=60; // 볼(벽) 크기
+var ballpixel=canvas.width/7; // 볼(벽) 크기
 var px=5; //캐릭터 최초 시작 x축 지점
 var py=10; //캐릭터 최초 시작 y축 지점
 ////////////////////////////////////////////////////////////////////////
@@ -76,8 +76,12 @@ var backImage = new Image(); // 배경화면
 var key = {};
 var keyImage = new Image();
 keyImage.src = "key.png";
-var keyx = [60,60,60,60,60,180,180,180,180,180,300,300,300,300,300];
-var keyy = [60,180,300,420,540,60,180,300,420,540,60,180,300,420,540];
+var keyx = [ballpixel,ballpixel,ballpixel,ballpixel,ballpixel,
+  (ballpixel*3),(ballpixel*3),(ballpixel*3),(ballpixel*3),(ballpixel*3),
+  (ballpixel*5),(ballpixel*5),(ballpixel*5),(ballpixel*5),(ballpixel*5)];
+var keyy = [ballpixel,(ballpixel*3),(ballpixel*5),(ballpixel*7),(ballpixel*9),
+  ballpixel,(ballpixel*3),(ballpixel*5),(ballpixel*7),(ballpixel*9),
+  ballpixel,(ballpixel*3),(ballpixel*5),(ballpixel*7),(ballpixel*9)];
 function drawKey(a,b){
   for(var i=0; i<a.length; i++){
     if(a[i]==undefined&&b[i]==undefined){
@@ -91,8 +95,12 @@ function drawKey(a,b){
     }
   }
   if(cnt==0){
-    keyx.push(60,60,60,60,60,180,180,180,180,180,300,300,300,300,300);
-    keyy.push(60,180,300,420,540,60,180,300,420,540,60,180,300,420,540);
+    keyx.push(ballpixel,ballpixel,ballpixel,ballpixel,ballpixel,
+			  (ballpixel*3),(ballpixel*3),(ballpixel*3),(ballpixel*3),(ballpixel*3),
+			  (ballpixel*5),(ballpixel*5),(ballpixel*5),(ballpixel*5),(ballpixel*5));
+    keyy.push(ballpixel,(ballpixel*3),(ballpixel*5),(ballpixel*7),(ballpixel*9),
+			  ballpixel,(ballpixel*3),(ballpixel*5),(ballpixel*7),(ballpixel*9),
+			  ballpixel,(ballpixel*3),(ballpixel*5),(ballpixel*7),(ballpixel*9));
     cnt=15;
   }
   if(point>=150){//fixed
@@ -108,21 +116,21 @@ var ran = function(a, b){ // 레이저 나오는 구역 랜덤으로 추출할 �
 };
 ////////////////////////////////////////////////////////////////////////
 var laserA = {}; // 세로 레이저 관련 코드
-laserA.x = -60;
-laserA.y = -60;
+laserA.x = -(ballpixel);
+laserA.y = -(ballpixel);
 function movelaserA(){
-  var aX = [60,180,300];
+  var aX = [ballpixel,(ballpixel*3),(ballpixel*5)];
   var rx = ran(0,aX.length);
-  ctx.drawImage(laserAImage, laserA.x, laserA.y += speed, 60, 120);
+  ctx.drawImage(laserAImage, laserA.x, laserA.y += speed, ballpixel, (ballpixel*2));
     if(laserA.x < 0){
        laserA.x = aX[rx];
     }
-    if(laserA.x >420){
+    if(laserA.x >canvas.width){
        laserA.x = aX[rx];
     }
     if(laserA.y > canvas.height){
        laserA.x = aX[rx];
-       laserA.y = -120;
+       laserA.y = -(ballpixel*2);
     }
 }
 var laserAImage = new Image();
@@ -132,22 +140,22 @@ laserAImage.onload = function(){
 };        
 ////////////////////////////////////////////////////////////////////////
 var laserB = {}; //가로 레이저 관련 코드
-laserB.x = -60;
-laserB.y = -60;
+laserB.x = -(ballpixel);
+laserB.y = -(ballpixel);
 function movelaserB(){
-	var aY = [60,180,300,420,540];
+	var aY = [ballpixel,(ballpixel*3),(ballpixel*5),(ballpixel*7),(ballpixel*9)];
     var ry = ran(0,aY.length);
  
-    ctx.drawImage(laserBImage, laserB.x += speed, laserB.y, 120, 60);
+    ctx.drawImage(laserBImage, laserB.x += speed, laserB.y, (ballpixel*2), ballpixel);
 
     if(laserB.y < 0){
        laserB.y = aY[ry];
     }
-    if(laserB.y >660){
+    if(laserB.y >canvas.height){
        laserB.y = aY[ry];
     }
     if(laserB.x > canvas.width){
-       laserB.x = -120;
+       laserB.x = -(ballpixel*2);
        laserB.y = aY[ry];
     }
 }
@@ -168,17 +176,17 @@ function drawBomb(){
 }
 function detectCollision(){
   a1 = laserA.y;
-  a2 = a1+60;
-  a3 = a1+120;
-  a4 = a2+120;
+  a2 = a1+ballpixel;
+  a3 = a1+(ballpixel*2);
+  a4 = a2+(ballpixel*2);
 
   b1 = laserB.x;
-  b2 = b1+120;
-  b3 = b1+60;
-  b4 = b2+60;
+  b2 = b1+(ballpixel*2);
+  b3 = b1+ballpixel;
+  b4 = b2+ballpixel;
 
   if((ball.x>b1&&ball.x<b2&&ball.y==laserB.y)||
-    (ball.y>a1&&ball.y<=a3-10&&ball.x==laserA.x)){
+    (ball.y>a1&&ball.y<=a3-(ballpixel/6)&&ball.x==laserA.x)){
     bool_collision = true;
     if(lives <= 0){
     	lives = 0;
@@ -215,16 +223,20 @@ function restart(){
 }
 function restartOpt(){
   speed = 5;
-  laserA.x = -60;
-  laserA.y = -60;
-  laserB.x = -60;
-  laserB.y = -60;
+  laserA.x = -(ballpixel);
+  laserA.y = -(ballpixel);
+  laserB.x = -(ballpixel);
+  laserB.y = -(ballpixel);
   ball.x = ballpixel*px;
   ball.y = ballpixel*py;
-  keyx = [60,60,60,60,60,180,180,180,180,180,300,300,300,300,300];
-  keyy = [60,180,300,420,540,60,180,300,420,540,60,180,300,420,540];
+  keyx = [ballpixel,ballpixel,ballpixel,ballpixel,ballpixel,
+  (ballpixel*3),(ballpixel*3),(ballpixel*3),(ballpixel*3),(ballpixel*3),
+  (ballpixel*5),(ballpixel*5),(ballpixel*5),(ballpixel*5),(ballpixel*5)];
+  keyy = [ballpixel,(ballpixel*3),(ballpixel*5),(ballpixel*7),(ballpixel*9),
+  ballpixel,(ballpixel*3),(ballpixel*5),(ballpixel*7),(ballpixel*9),
+  ballpixel,(ballpixel*3),(ballpixel*5),(ballpixel*7),(ballpixel*9)];
   for(var i=0; i<keyx.length; i++){
-	  ctx.drawImage(keyImage, keyx[i]+15, keyy[i]+15, 30, 30);
+	  ctx.drawImage(keyImage, keyx[i]+(ballpixel/4), keyy[i]+(ballpixel/4), (ballpixel/2), (ballpixel/2));
   }	
 }
 $("#restart").click(function(){
@@ -310,7 +322,7 @@ var render = function(){
 	    }
 	    if(keyReady){
 	      for(var i=0; i<keyx.length; i++){
-	        ctx.drawImage(keyImage, keyx[i]+15, keyy[i]+15, 30, 30);
+	        ctx.drawImage(keyImage, keyx[i]+(ballpixel/4), keyy[i]+(ballpixel/4), (ballpixel/2), (ballpixel/2));
 	      }
 	    }
 	    if(laserAReady){
