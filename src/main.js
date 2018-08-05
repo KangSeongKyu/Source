@@ -1,14 +1,14 @@
 var ganvas = document.getElementById("myBack");
 var gtx = ganvas.getContext('2d');
 var baImage = new Image();
-baImage.src = "image/back.png";
+baImage.src = "back.png";
 baImage.onload = function(){
 	  if(score>=0&&score<70){
-	  	baImage.src = "image/back3.png";
+	  	baImage.src = "back3.png";
 	  }else if(score>=70&&score<150){
-	  	baImage.src = "image/back4.png";
+	  	baImage.src = "back4.png";
 	  }else{
-	  	baImage.src = "image/back5.png";
+	  	baImage.src = "back5.png";
 	  }
 	  gtx.drawImage(baImage,0,0,ganvas.width,ganvas.height);
 
@@ -43,7 +43,7 @@ var px=5; //캐릭터 최초 시작 x축 지점
 var py=10; //캐릭터 최초 시작 y축 지점
 ////////////////////////////////////////////////////////////////////////
 var backImage = new Image(); // 배경화면
- backImage.src = "image/back.png";
+ backImage.src = "back.png";
  backImage.onload = function(){
     ctx.drawImage(backImage, 0, 0);
  };
@@ -52,7 +52,7 @@ var backImage = new Image(); // 배경화면
  ball.x = ballpixel*px;     
  ball.y = ballpixel*py;     
  var ballImage = new Image();
- ballImage.src = "image/ryan.png";
+ ballImage.src = "ryan.png";
  ballImage.onload = function(){
    if(lives==2){
    	   ctx.drawImage(ballImage, ball.x, ball.y, ballpixel, ballpixel);
@@ -63,7 +63,7 @@ var backImage = new Image(); // 배경화면
  };
 ////////////////////////////////////////////////////////////////////////
  var wall = new Image(); // 장애물 벽
- wall.src = "image/wall.png";
+ wall.src = "wall.png";
  wall.onload = function(){
     for (var y = 0; y < canvas.height-ballpixel+1; y=y+(ballpixel*2)) { 
        for (var x = 0; x < canvas.width-ballpixel+1; x=x+(ballpixel*2)) { 
@@ -75,7 +75,7 @@ var backImage = new Image(); // 배경화면
 //캐릭터가 먹어야 하는 아이템 관련 코드
 var key = {};
 var keyImage = new Image();
-keyImage.src = "image/key.png";
+keyImage.src = "key.png";
 var keyx = [60,60,60,60,60,180,180,180,180,180,300,300,300,300,300];
 var keyy = [60,180,300,420,540,60,180,300,420,540,60,180,300,420,540];
 function drawKey(a,b){
@@ -126,7 +126,7 @@ function movelaserA(){
     }
 }
 var laserAImage = new Image();
-laserAImage.src = "image/laserC.png";
+laserAImage.src = "laserC.png";
 laserAImage.onload = function(){
   laserAReady = true;
 };        
@@ -152,14 +152,14 @@ function movelaserB(){
     }
 }
 var laserBImage = new Image();
-laserBImage.src = "image/laserR.png";
+laserBImage.src = "laserR.png";
 laserBImage.onload = function(){
 	laserBReady = true;
 };
 ////////////////////////////////////////////////////////////////////////
 var collision = {};
 var bombImage = new Image();
-bombImage.src = "image/ryan2.png";
+bombImage.src = "ryan2.png";
 bombImage.onload = function(){
   bool_bomb = true;
 };
@@ -269,11 +269,11 @@ var render = function(){
  		acDelta = 0;
 	 	if(baReady){
 		  if(score>=0&&score<70){
-		  	baImage.src = "image/back3.png";
+		  	baImage.src = "back3.png";
 		  }else if(score>=70&&score<150){
-		  	baImage.src = "image/back4.png";
+		  	baImage.src = "back4.png";
 		  }else{
-		  	baImage.src = "image/back5.png";
+		  	baImage.src = "back5.png";
 		  }
 		  gtx.drawImage(baImage,0,0,ganvas.width,ganvas.height);
 
