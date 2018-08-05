@@ -347,31 +347,29 @@ var render = function(){
 ////////////////////////////////////////////////////////////////////////
 //키보드 이벤트//
 
-var downx;
-var downy;
-var upx;
-var upy;
-function touchSHandler(e){
-  downx = e.touches[0].pageX;
-  downy = e.touches[0].pageY;
+var lastPt = null;
+function init() {
+        canvas.addEventListener("touchmove", draw, false);
+        canvas.addEventListener("touchend", end, false);
 }
-function touchEHandler(e){
-  upx = e.touches[0].pageX;
-  upy = e.touches[0].pageY;
-  
-  if((downy-upy)>0&&(Math.abs(downy-upy)>Math.abs(downx-upx))){
-    	ball.y = ball.y-ballpixel;
-    }
-    if((downy-upy)<0&&(Math.abs(downy-upy)>Math.abs(downx-upx))){
-    	ball.y = ball.y+ballpixel;
-    }
-    if((downx-upx)>0&&(Math.abs(downy-upy)<Math.abs(downx-upx))){
-    	ball.x = ball.x-ballpixel;
-    }
-    if((downx-upx)>0&&(Math.abs(downy-upy)<Math.abs(downx-upx))){
-    	ball.x = ball.x+ballpixel;
-    }
+
+function draw(e) {
+	e.preventDefault();
+	if(lastPt!=null) {
+	  ctx.beginPath();
+	  ctx.moveTo(lastPt.x, lastPt.y);
+	  ctx.lineTo(e.touches[0].pageX, e.touches[0].pageY);
+	  ctx.stroke();
+	}
+	lastPt = {x:e.touches[0].pageX, y:e.touches[0].pageY};
 }
+
+function end(e) {
+	e.preventDefault();
+// Terminate touch path
+	lastPt=null;
+}
+
 addEventListener("keydown", function(e){
   if(38 === e.keyCode){
      ball.y = ball.y-ballpixel;
