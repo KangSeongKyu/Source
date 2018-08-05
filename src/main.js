@@ -347,13 +347,13 @@ var render = function(){
 ////////////////////////////////////////////////////////////////////////
 //키보드 이벤트//
 
-addEventListener("mousedown", function(e){
-	downx = event.x;
-    downy = event.y;
+addEventListener("touchstart", function(e){
+	downx = e.x;
+    downy = e.y;
 }, false)
-addEventListener("mouseup", function(e){
-	upx = event.x;
-    upy = event.y;
+addEventListener("touchend", function(e){
+	upx = e.x;
+    upy = e.y;
 
     if((downy-upy)>0&&(Math.abs(downy-upy)>Math.abs(downx-upx))){
     	ball.y = ball.y-ballpixel;
