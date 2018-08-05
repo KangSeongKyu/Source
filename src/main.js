@@ -3,29 +3,34 @@ var gtx = ganvas.getContext('2d');
 var baImage = new Image();
 baImage.src = "back.png";
 baImage.onload = function(){
-	  if(score>=0&&score<70){
-	  	baImage.src = "back3.png";
-	  }else if(score>=70&&score<150){
-	  	baImage.src = "back4.png";
-	  }else{
-	  	baImage.src = "back5.png";
-	  }
+	  if(score>=0&&score<300){
+	      baImage.src = "back1.png";
+	    }else if(score>=300&&score<600){
+	      baImage.src = "back2.png";
+	    }else if(score>=600&&score<900){
+	      baImage.src = "back3.png";
+	    }else if(score>=900&&score<1200){
+	      baImage.src = "back4.png";
+	    }else{
+	      baImage.src = "back5.png";
+	    }
 	  gtx.drawImage(baImage,0,0,ganvas.width,ganvas.height);
 
-	  gtx.strokeStyle = 'blue';
-	  gtx.font = '50px Bombardment';
-	  gtx.strokeText("LIVE ", 150, 50);
-	  gtx.fillStyle = 'blue';
-	  gtx.font = '50px Bombardment';
-	  gtx.fillText(lives, 280, 50);
+	  gtx.strokeStyle = 'white';
+	  gtx.font = '40px Bombardment';
+	  gtx.fillText("LIVE ", 30, 35);
+	  gtx.fillStyle = 'white';
+	  gtx.font = '40px Bombardment';
+	  gtx.fillText(lives, 130, 35);
 
-	  gtx.strokeStyle = 'blue';
-	  gtx.font = '50px Bombardment';
-	  gtx.strokeText("SCORE ", 110, 780);
-	  gtx.fillStyle = 'blue';
-	  gtx.font = '50px Bombardment';
-	  gtx.fillText(score, 280, 780);//fixed
+	  gtx.strokeStyle = 'white';
+	  gtx.font = '40px Bombardment';
+	  gtx.fillText("SCORE ", 30, 635);
+	  gtx.fillStyle = 'white';
+	  gtx.font = '40px Bombardment';
+	  gtx.fillText(score, 160, 635);//fixed
 }
+
 ////////////////////////////////////////////////////////////////////////
 var canvas = document.getElementById("myCanvas");
 var ctx = canvas.getContext('2d');
@@ -280,28 +285,32 @@ var render = function(){
  	if(acDelta > msFrame){
  		acDelta = 0;
 	 	if(baReady){
-		  if(score>=0&&score<70){
-		  	baImage.src = "back3.png";
-		  }else if(score>=70&&score<150){
-		  	baImage.src = "back4.png";
-		  }else{
-		  	baImage.src = "back5.png";
-		  }
+		  if(score>=0&&score<300){
+		      baImage.src = "back1.png";
+		    }else if(score>=300&&score<600){
+		      baImage.src = "back2.png";
+		    }else if(score>=600&&score<900){
+		      baImage.src = "back3.png";
+		    }else if(score>=900&&score<1200){
+		      baImage.src = "back4.png";
+		    }else{
+		      baImage.src = "back5.png";
+		    }
 		  gtx.drawImage(baImage,0,0,ganvas.width,ganvas.height);
 
-		  gtx.strokeStyle = 'blue';
-		  gtx.font = '50px Bombardment';
-		  gtx.strokeText("LIVE ", 150, 50);
-		  gtx.fillStyle = 'blue';
-		  gtx.font = '50px Bombardment';
-		  gtx.fillText(lives, 280, 50);
+		  gtx.strokeStyle = 'white';
+		  gtx.font = '40px Bombardment';
+		  gtx.fillText("LIVE ", 30, 35);
+		  gtx.fillStyle = 'white';
+		  gtx.font = '40px Bombardment';
+		  gtx.fillText(lives, 130, 35);
 
-		  gtx.strokeStyle = 'blue';
-		  gtx.font = '50px Bombardment';
-		  gtx.strokeText("SCORE ", 110, 780);
-		  gtx.fillStyle = 'blue';
-		  gtx.font = '50px Bombardment';
-		  gtx.fillText(score, 280, 780);
+		  gtx.strokeStyle = 'white';
+		  gtx.font = '40px Bombardment';
+		  gtx.fillText("SCORE ", 30, 635);
+		  gtx.fillStyle = 'white';
+		  gtx.font = '40px Bombardment';
+		  gtx.fillText(score, 160, 635);//fixed
 		}
 	   	if(backReady){
 	         ctx.drawImage(backImage, 0, 0);
@@ -337,6 +346,28 @@ var render = function(){
 };
 ////////////////////////////////////////////////////////////////////////
 //키보드 이벤트//
+
+addEventListener("mousedown", function(e){
+	downx = event.x;
+    downy = event.y;
+}, false)
+addEventListener("mouseup", function(e){
+	upx = event.x;
+    upy = event.y;
+
+    if((downy-upy)>0&&(Math.abs(downy-upy)>Math.abs(downx-upx))){
+    	ball.y = ball.y-ballpixel;
+    }
+    if((downy-upy)<0&&(Math.abs(downy-upy)>Math.abs(downx-upx))){
+    	ball.y = ball.y+ballpixel;
+    }
+    if((downx-upx)>0&&(Math.abs(downy-upy)<Math.abs(downx-upx))){
+    	ball.x = ball.x-ballpixel;
+    }
+    if((downx-upx)>0&&(Math.abs(downy-upy)<Math.abs(downx-upx))){
+    	ball.x = ball.x+ballpixel;
+    }
+}, false)
 addEventListener("keydown", function(e){
   if(38 === e.keyCode){
      ball.y = ball.y-ballpixel;
