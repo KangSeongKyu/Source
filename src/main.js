@@ -347,13 +347,13 @@ var render = function(){
 ////////////////////////////////////////////////////////////////////////
 //키보드 이벤트//
 var downx, downy, upx, upy;
-canvas.ontouchstart = function (e) { 
+addEventListener("touchstart", function(e){
 	e.preventDefault();
 	downx = e.pageX;
 	downy = e.pageY;
-};
+}, false);
 
-canvas.ontouchend = function (e) { 
+addEventListener("touchend", function(e){
    e.preventDefault();
    upx = e.pageX;
    upy = e.pageY;
@@ -364,7 +364,7 @@ canvas.ontouchend = function (e) {
    if(downy-upy < 0&&(Math.abs(downy-upy)>Math.abs(downx-upx))){
    		ball.y = ball.y-ballpixel;
    }
-};
+}, false);
 addEventListener("keydown", function(e){
   if(38 === e.keyCode){
      ball.y = ball.y-ballpixel;
