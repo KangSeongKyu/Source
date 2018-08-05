@@ -347,15 +347,19 @@ var render = function(){
 ////////////////////////////////////////////////////////////////////////
 //키보드 이벤트//
 
-addEventListener("touchstart", function(e){
-	downx = e.x;
-    downy = e.y;
-}, false)
-addEventListener("touchend", function(e){
-	upx = e.x;
-    upy = e.y;
-
-    if((downy-upy)>0&&(Math.abs(downy-upy)>Math.abs(downx-upx))){
+var downx;
+var downy;
+var upx;
+var upy;
+function touchSHandler(e){
+  downx = e.touches[0].pageX;
+  downy = e.touches[0].pageY;
+}
+function touchEHandler(e){
+  upx = e.touches[0].pageX;
+  upy = e.touches[0].pageY;
+  
+  if((downy-upy)>0&&(Math.abs(downy-upy)>Math.abs(downx-upx))){
     	ball.y = ball.y-ballpixel;
     }
     if((downy-upy)<0&&(Math.abs(downy-upy)>Math.abs(downx-upx))){
@@ -367,7 +371,7 @@ addEventListener("touchend", function(e){
     if((downx-upx)>0&&(Math.abs(downy-upy)<Math.abs(downx-upx))){
     	ball.x = ball.x+ballpixel;
     }
-}, false)
+}
 addEventListener("keydown", function(e){
   if(38 === e.keyCode){
      ball.y = ball.y-ballpixel;
