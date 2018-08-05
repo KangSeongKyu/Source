@@ -1,35 +1,35 @@
-var ganvas = document.getElementById("myBack");
-var gtx = ganvas.getContext('2d');
-var baImage = new Image();
-baImage.src = "back.png";
-baImage.onload = function(){
-	  if(score>=0&&score<300){
-	      baImage.src = "back1.png";
-	    }else if(score>=300&&score<600){
-	      baImage.src = "back2.png";
-	    }else if(score>=600&&score<900){
-	      baImage.src = "back3.png";
-	    }else if(score>=900&&score<1200){
-	      baImage.src = "back4.png";
-	    }else{
-	      baImage.src = "back5.png";
-	    }
-	  gtx.drawImage(baImage,0,0,ganvas.width,ganvas.height);
+// var ganvas = document.getElementById("myBack");
+// var gtx = ganvas.getContext('2d');
+// var baImage = new Image();
+// baImage.src = "back.png";
+// baImage.onload = function(){
+// 	  if(score>=0&&score<300){
+// 	      baImage.src = "back1.png";
+// 	    }else if(score>=300&&score<600){
+// 	      baImage.src = "back2.png";
+// 	    }else if(score>=600&&score<900){
+// 	      baImage.src = "back3.png";
+// 	    }else if(score>=900&&score<1200){
+// 	      baImage.src = "back4.png";
+// 	    }else{
+// 	      baImage.src = "back5.png";
+// 	    }
+// 	  gtx.drawImage(baImage,0,0,ganvas.width,ganvas.height);
 
-	  gtx.strokeStyle = 'white';
-	  gtx.font = '40px Bombardment';
-	  gtx.fillText("LIVE ", 30, 35);
-	  gtx.fillStyle = 'white';
-	  gtx.font = '40px Bombardment';
-	  gtx.fillText(lives, 130, 35);
+// 	  gtx.strokeStyle = 'white';
+// 	  gtx.font = '40px Bombardment';
+// 	  gtx.fillText("LIVE ", 30, 35);
+// 	  gtx.fillStyle = 'white';
+// 	  gtx.font = '40px Bombardment';
+// 	  gtx.fillText(lives, 130, 35);
 
-	  gtx.strokeStyle = 'white';
-	  gtx.font = '40px Bombardment';
-	  gtx.fillText("SCORE ", 30, 635);
-	  gtx.fillStyle = 'white';
-	  gtx.font = '40px Bombardment';
-	  gtx.fillText(score, 160, 635);//fixed
-}
+// 	  gtx.strokeStyle = 'white';
+// 	  gtx.font = '40px Bombardment';
+// 	  gtx.fillText("SCORE ", 30, 635);
+// 	  gtx.fillStyle = 'white';
+// 	  gtx.font = '40px Bombardment';
+// 	  gtx.fillText(score, 160, 635);//fixed
+// }
 
 ////////////////////////////////////////////////////////////////////////
 var canvas = document.getElementById("myCanvas");
@@ -259,9 +259,9 @@ var ballReady = false;
 var wallReady = false;
 var keyReady = false;
 
-baImage.onload = function(){
-   baReady = true;
-};
+// baImage.onload = function(){
+//    baReady = true;
+// };
 
 backImage.onload = function(){
    backReady = true;
@@ -284,34 +284,34 @@ var render = function(){
  	var delta = Date.now() - lastup;
  	if(acDelta > msFrame){
  		acDelta = 0;
-	 	if(baReady){
-		  if(score>=0&&score<300){
-		      baImage.src = "back1.png";
-		    }else if(score>=300&&score<600){
-		      baImage.src = "back2.png";
-		    }else if(score>=600&&score<900){
-		      baImage.src = "back3.png";
-		    }else if(score>=900&&score<1200){
-		      baImage.src = "back4.png";
-		    }else{
-		      baImage.src = "back5.png";
-		    }
-		  gtx.drawImage(baImage,0,0,ganvas.width,ganvas.height);
+	 	//if(baReady){
+		//   if(score>=0&&score<300){
+		//       baImage.src = "back1.png";
+		//     }else if(score>=300&&score<600){
+		//       baImage.src = "back2.png";
+		//     }else if(score>=600&&score<900){
+		//       baImage.src = "back3.png";
+		//     }else if(score>=900&&score<1200){
+		//       baImage.src = "back4.png";
+		//     }else{
+		//       baImage.src = "back5.png";
+		//     }
+		//   gtx.drawImage(baImage,0,0,ganvas.width,ganvas.height);
 
-		  gtx.strokeStyle = 'white';
-		  gtx.font = '40px Bombardment';
-		  gtx.fillText("LIVE ", 30, 35);
-		  gtx.fillStyle = 'white';
-		  gtx.font = '40px Bombardment';
-		  gtx.fillText(lives, 130, 35);
+		//   gtx.strokeStyle = 'white';
+		//   gtx.font = '40px Bombardment';
+		//   gtx.fillText("LIVE ", 30, 35);
+		//   gtx.fillStyle = 'white';
+		//   gtx.font = '40px Bombardment';
+		//   gtx.fillText(lives, 130, 35);
 
-		  gtx.strokeStyle = 'white';
-		  gtx.font = '40px Bombardment';
-		  gtx.fillText("SCORE ", 30, 635);
-		  gtx.fillStyle = 'white';
-		  gtx.font = '40px Bombardment';
-		  gtx.fillText(score, 160, 635);//fixed
-		}
+		//   gtx.strokeStyle = 'white';
+		//   gtx.font = '40px Bombardment';
+		//   gtx.fillText("SCORE ", 30, 635);
+		//   gtx.fillStyle = 'white';
+		//   gtx.font = '40px Bombardment';
+		//   gtx.fillText(score, 160, 635);//fixed
+		// }
 	   	if(backReady){
 	         ctx.drawImage(backImage, 0, 0);
 	    }
@@ -401,7 +401,6 @@ addEventListener("mouseup", function(e){
     	ball.x = ball.x+ballpixel;
     }
 }, false)
-
 addEventListener("keydown", function(e){
   if(38 === e.keyCode){
      ball.y = ball.y-ballpixel;
