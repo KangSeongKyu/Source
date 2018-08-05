@@ -346,63 +346,61 @@ var render = function(){
 };
 ////////////////////////////////////////////////////////////////////////
 //키보드 이벤트//
-// var lastPt = null;
-// function init() {
-//         canvas.addEventListener("touchmove", draw, false);
-//         canvas.addEventListener("touchend", end, false);
-// }
-
-// function draw(e) {
-// 	e.preventDefault();
-// 	if(lastPt!=null) {
-// 	  ctx.beginPath();
-// 	  ctx.moveTo(lastPt.x, lastPt.y);
-// 	  ctx.lineTo(e.touches[0].pageX, e.touches[0].pageY);
-// 	  ctx.stroke();
-// 	}
-// 	lastPt = {x:e.touches[0].pageX, y:e.touches[0].pageY};
-// }
-
-// function end(e) {
-// 	e.preventDefault();
-// // Terminate touch path
-// 	lastPt=null;
-// }
-
-var bStartEvent = false;
-//touchstart 이벤트 발생 여부 플래그
-var bMoveEvent = false;
-//touchmove 이벤트 발생 여부 플래그
- 
-function init(){
-    canvas.addEventListener("touchstart", this.onStart.bind(this), false);
-    canvas.addEventListener("touchmove", this.onMove.bind(this), false);
-    canvas.addEventListener("touchend", this.onEnd.bind(this), false);
-}
- 
-function onStart(e) {
-    bStartEvent = true;
-}
- 
-function onMove(e) {
-    
-    if(!bStartEvent) {
-        return;
-        //touchstart 이벤트가 발생하지 않으면 처리하지 않는다.
+function touchHandler(event)
+{
+    var touches = event.changedTouches,
+        first = touches[0],
+        type = "";
+    switch(event.type)
+    {
+        case "touchstart": type = "mousedown"; break;
+        case "touchmove":  type = "mousemove"; break;        
+        case "touchend":   type = "mouseup";   break;
+        default:           return;
     }
-    bMoveEvent = true;
-    //touchMove 이벤트 발생 여부를 설정한다.
+
+    // initMouseEvent(type, canBubble, cancelable, view, clickCount, 
+    //                screenX, screenY, clientX, clientY, ctrlKey, 
+    //                altKey, shiftKey, metaKey, button, relatedTarget);
+
+    var simulatedEvent = document.createEvent("MouseEvent");
+    simulatedEvent.initMouseEvent(type, true, true, window, 1, 
+                                  first.screenX, first.screenY, 
+                                  first.clientX, first.clientY, false, 
+                                  false, false, false, 0/*left*/, null);
+
+    first.target.dispatchEvent(simulatedEvent);
+    event.preventDefault();
 }
- 
-function onEnd(e) {
-    if(bStartEvent && !bMoveEvent) {
-        //클릭 이벤트로 판단한다.
-        alert('Tap!');
+
+function init() 
+{
+    canvas.addEventListener("touchstart", touchHandler, true);
+    canvas.addEventListener("touchmove", touchHandler, true);
+    canvas.addEventListener("touchend", touchHandler, true);
+    canvas.addEventListener("touchcancel", touchHandler, true);    
+}
+addEventListener("mousedown", function(e){
+	downx = e.x;
+    downy = e.y;
+}, false)
+addEventListener("mouseup", function(e){
+	upx = e.x;
+    upy = e.y;
+
+    if((downy-upy)>0&&(Math.abs(downy-upy)>Math.abs(downx-upx))){
+    	ball.y = ball.y-ballpixel;
     }
-    //각 플래그 값을 초기값으로 설정한다.
-    bStartEvent = false;
-    bMoveEvent = false;
-}
+    if((downy-upy)<0&&(Math.abs(downy-upy)>Math.abs(downx-upx))){
+    	ball.y = ball.y+ballpixel;
+    }
+    if((downx-upx)>0&&(Math.abs(downy-upy)<Math.abs(downx-upx))){
+    	ball.x = ball.x-ballpixel;
+    }
+    if((downx-upx)>0&&(Math.abs(downy-upy)<Math.abs(downx-upx))){
+    	ball.x = ball.x+ballpixel;
+    }
+}, false)
 
 addEventListener("keydown", function(e){
   if(38 === e.keyCode){
