@@ -7,7 +7,22 @@
   <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
   <style>
-    body { width: 360px; height: 640px}
+    body { 
+       margin: 0; 
+       padding: 0
+     }
+    #myBack { 
+     position: absolute; 
+     height: 100vh; 
+      width: 100vw; 
+      display: block;
+    }
+    #myCanvas { 
+     position: absolute; 
+     height: 80vh; 
+      width: 80vw; 
+      display: block;
+    }
     .border-styles > #myBack{
       border-width: 2px;
       border-color: blue;
@@ -38,8 +53,8 @@
   </style>
 </head>
 <body>
-  <canvas id="myBack" width="360" height="640" style="position: absolute; margin: 0px 0px; border-style:solid"></canvas>
-  <canvas id="myCanvas" width="350" height="550" style="position: absolute; margin:45px 5px; border-style:groove"></canvas>
+  <canvas id="myBack" style="position: absolute; margin: 0; border-style:solid"></canvas>
+  <canvas id="myCanvas" style="position: absolute; margin:20%; border-style:groove"></canvas>
   <div class="gameover" id="gameover">GAME OVER
     <p><span id="restart" style="font-size: 40px; color: orange; left: 100px; border-style:groove">RESTART</span></p>
     <p><span id="maxScore" style="font-size: 40px; color: yellow; left: 50px">0</span></p>
