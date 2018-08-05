@@ -7,7 +7,6 @@
   <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
   <style>
-    body { width: 360px; height: 640px}
     #myBack { position: absolute; margin: 0px 0px;}
     #myCanvas {position: absolute; margin:60px 15px;}
     .border-styles > #myBack{
@@ -20,11 +19,11 @@
     }
     .gameover {
       position: absolute;
-      top: 300px;
-      left: 50px;
+      top: 200px;
+      left: 60px;
       color: red;
       font-family: Bombardment, sans-serif;
-      font-size: 70px;
+      font-size: 50px;
       cursor: default;
       display: none;
     }
@@ -32,7 +31,7 @@
       font-size: 20px;
       cursor: pointer;
       position: relative;
-      left: 50px;
+      left: 20px;
     }
     .gameover span:hover {
       color: orange;
@@ -40,11 +39,11 @@
   </style>
 </head>
 <body>
-  <canvas id="myBack" width="320" height="568" style="position: absolute; margin: 0px 0px; border-style:solid"></canvas>
-  <canvas id="myCanvas" width="280" height="440" style="position: absolute; margin:64px 20px; border-style:groove"></canvas>
+  <canvas id="myBack" width="360" height="640" style="position: absolute; margin: 0px 0px; border-style:solid"></canvas>
+  <canvas id="myCanvas" width="350" height="550" style="position: absolute; margin:45px 5px; border-style:groove"></canvas>
   <div class="gameover" id="gameover">GAME OVER
-    <p><span id="restart" style="font-size: 40px; color: orange; left: 100px; border-style:groove">RESTART</span></p>
-    <p><span id="maxScore" style="font-size: 40px; color: yellow; left: 50px">0</span></p>
+    <p><span id="restart" style="font-size: 30px; color: green; left: 70px; border-style:groove">RESTART</span></p>
+    <p><span id="maxScore" style="font-size: 30px; color: blue; left: 35px">0</span></p>
   </div>
   <script src="main.js"></script>
   </body>
