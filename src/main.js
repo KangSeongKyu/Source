@@ -1,35 +1,35 @@
-// var ganvas = document.getElementById("myBack");
-// var gtx = ganvas.getContext('2d');
-// var baImage = new Image();
-// baImage.src = "back.png";
-// baImage.onload = function(){
-// 	  if(score>=0&&score<300){
-// 	      baImage.src = "back1.png";
-// 	    }else if(score>=300&&score<600){
-// 	      baImage.src = "back2.png";
-// 	    }else if(score>=600&&score<900){
-// 	      baImage.src = "back3.png";
-// 	    }else if(score>=900&&score<1200){
-// 	      baImage.src = "back4.png";
-// 	    }else{
-// 	      baImage.src = "back5.png";
-// 	    }
-// 	  gtx.drawImage(baImage,0,0,ganvas.width,ganvas.height);
+var ganvas = document.getElementById("myBack");
+var gtx = ganvas.getContext('2d');
+var baImage = new Image();
+baImage.src = "back.png";
+baImage.onload = function(){
+	  if(score>=0&&score<300){
+      baImage.src = "back1.png";
+    }else if(score>=300&&score<600){
+      baImage.src = "back2.png";
+    }else if(score>=600&&score<900){
+      baImage.src = "back3.png";
+    }else if(score>=900&&score<1200){
+      baImage.src = "back4.png";
+    }else{
+      baImage.src = "back5.png";
+    }
+	  gtx.drawImage(baImage,0,0,ganvas.width,ganvas.height);
 
-// 	  gtx.strokeStyle = 'white';
-// 	  gtx.font = '40px Bombardment';
-// 	  gtx.fillText("LIVE ", 30, 35);
-// 	  gtx.fillStyle = 'white';
-// 	  gtx.font = '40px Bombardment';
-// 	  gtx.fillText(lives, 130, 35);
+	  gtx.strokeStyle = 'white';
+	  gtx.font = '40px Bombardment';
+	  gtx.fillText("LIVE ", 30, 35);
+	  gtx.fillStyle = 'white';
+	  gtx.font = '40px Bombardment';
+	  gtx.fillText(lives, 130, 35);
 
-// 	  gtx.strokeStyle = 'white';
-// 	  gtx.font = '40px Bombardment';
-// 	  gtx.fillText("SCORE ", 30, 635);
-// 	  gtx.fillStyle = 'white';
-// 	  gtx.font = '40px Bombardment';
-// 	  gtx.fillText(score, 160, 635);//fixed
-// }
+	  gtx.strokeStyle = 'white';
+	  gtx.font = '40px Bombardment';
+	  gtx.fillText("SCORE ", 30, 635);
+	  gtx.fillStyle = 'white';
+	  gtx.font = '40px Bombardment';
+	  gtx.fillText(score, 160, 635);//fixed
+}
 
 ////////////////////////////////////////////////////////////////////////
 var canvas = document.getElementById("myCanvas");
@@ -259,9 +259,9 @@ var ballReady = false;
 var wallReady = false;
 var keyReady = false;
 
-// baImage.onload = function(){
-//    baReady = true;
-// };
+baImage.onload = function(){
+   baReady = true;
+};
 
 backImage.onload = function(){
    backReady = true;
@@ -284,34 +284,34 @@ var render = function(){
  	var delta = Date.now() - lastup;
  	if(acDelta > msFrame){
  		acDelta = 0;
-	 	//if(baReady){
-		//   if(score>=0&&score<300){
-		//       baImage.src = "back1.png";
-		//     }else if(score>=300&&score<600){
-		//       baImage.src = "back2.png";
-		//     }else if(score>=600&&score<900){
-		//       baImage.src = "back3.png";
-		//     }else if(score>=900&&score<1200){
-		//       baImage.src = "back4.png";
-		//     }else{
-		//       baImage.src = "back5.png";
-		//     }
-		//   gtx.drawImage(baImage,0,0,ganvas.width,ganvas.height);
+	 	if(baReady){
+		  if(score>=0&&score<300){
+		  	baImage.src = "back1.png";
+		  }else if(score>=300&&score<600){
+		  	baImage.src = "back2.png";
+		  }else if(score>=600&&score<900){
+		  	baImage.src = "back3.png";
+		  }else if(score>=900&&score<1200){
+        baImage.src = "back4.png";
+      }else{
+        baImage.src = "back5.png";
+      }
+		  gtx.drawImage(baImage,0,0,ganvas.width,ganvas.height);
 
-		//   gtx.strokeStyle = 'white';
-		//   gtx.font = '40px Bombardment';
-		//   gtx.fillText("LIVE ", 30, 35);
-		//   gtx.fillStyle = 'white';
-		//   gtx.font = '40px Bombardment';
-		//   gtx.fillText(lives, 130, 35);
+		  gtx.strokeStyle = 'white';
+		  gtx.font = '40px Bombardment';
+		  gtx.fillText("LIVE ", 30, 35);
+		  gtx.fillStyle = 'white';
+		  gtx.font = '40px Bombardment';
+		  gtx.fillText(lives, 130, 35);
 
-		//   gtx.strokeStyle = 'white';
-		//   gtx.font = '40px Bombardment';
-		//   gtx.fillText("SCORE ", 30, 635);
-		//   gtx.fillStyle = 'white';
-		//   gtx.font = '40px Bombardment';
-		//   gtx.fillText(score, 160, 635);//fixed
-		// }
+		  gtx.strokeStyle = 'white';
+		  gtx.font = '40px Bombardment';
+		  gtx.fillText("SCORE ", 30, 635);
+		  gtx.fillStyle = 'white';
+		  gtx.font = '40px Bombardment';
+		  gtx.fillText(score, 160, 635);//fixed
+		}
 	   	if(backReady){
 	         ctx.drawImage(backImage, 0, 0);
 	    }
@@ -346,61 +346,25 @@ var render = function(){
 };
 ////////////////////////////////////////////////////////////////////////
 //키보드 이벤트//
-function touchHandler(event)
-{
-    var touches = event.changedTouches,
-        first = touches[0],
-        type = "";
-    switch(event.type)
-    {
-        case "touchstart": type = "mousedown"; break;
-        case "touchmove":  type = "mousemove"; break;        
-        case "touchend":   type = "mouseup";   break;
-        default:           return;
-    }
+var downx, downy, upx, upy;
+canvas.ontouchstart = function (e) { 
+	e.preventDefault();
+	downx = e.pageX;
+	downy = e.pageY;
+};
 
-    // initMouseEvent(type, canBubble, cancelable, view, clickCount, 
-    //                screenX, screenY, clientX, clientY, ctrlKey, 
-    //                altKey, shiftKey, metaKey, button, relatedTarget);
+canvas.ontouchend = function (e) { 
+   e.preventDefault();
+   upx = e.pageX;
+   upy = e.pageY;
 
-    var simulatedEvent = document.createEvent("MouseEvent");
-    simulatedEvent.initMouseEvent(type, true, true, window, 1, 
-                                  first.screenX, first.screenY, 
-                                  first.clientX, first.clientY, false, 
-                                  false, false, false, 0/*left*/, null);
-
-    first.target.dispatchEvent(simulatedEvent);
-    event.preventDefault();
-}
-
-function init() 
-{
-    canvas.addEventListener("touchstart", touchHandler, true);
-    canvas.addEventListener("touchmove", touchHandler, true);
-    canvas.addEventListener("touchend", touchHandler, true);
-    canvas.addEventListener("touchcancel", touchHandler, true);    
-}
-addEventListener("mousedown", function(e){
-	downx = e.x;
-    downy = e.y;
-}, false)
-addEventListener("mouseup", function(e){
-	upx = e.x;
-    upy = e.y;
-
-    if((downy-upy)>0&&(Math.abs(downy-upy)>Math.abs(downx-upx))){
-    	ball.y = ball.y-ballpixel;
-    }
-    if((downy-upy)<0&&(Math.abs(downy-upy)>Math.abs(downx-upx))){
-    	ball.y = ball.y+ballpixel;
-    }
-    if((downx-upx)>0&&(Math.abs(downy-upy)<Math.abs(downx-upx))){
-    	ball.x = ball.x-ballpixel;
-    }
-    if((downx-upx)>0&&(Math.abs(downy-upy)<Math.abs(downx-upx))){
-    	ball.x = ball.x+ballpixel;
-    }
-}, false)
+   if(downy-upy > 0&&(Math.abs(downy-upy)>Math.abs(downx-upx))){
+   		ball.y = ball.y+ballpixel;
+   }
+   if(downy-upy < 0&&(Math.abs(downy-upy)>Math.abs(downx-upx))){
+   		ball.y = ball.y-ballpixel;
+   }
+};
 addEventListener("keydown", function(e){
   if(38 === e.keyCode){
      ball.y = ball.y-ballpixel;
