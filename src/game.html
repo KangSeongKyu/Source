@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+	<title> kakao games</title>
+	<meta charset="utf-8">
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+  <style>
+    #myBack { position: absolute; margin: 0px 0px;}
+    #myCanvas {position: absolute; margin:60px 15px;}
+
+    .border-styles > #myBack{
+      border-width: 2px;
+      border-color: blue;
+    }
+    .border-styles > #myCanvas{
+      border-width: 2px;
+      border-color: blue;
+    }
+
+    .gameover {
+      position: absolute;
+      top: 300px;
+      left: 50px;
+      color: red;
+      font-family: Bombardment, sans-serif;
+      font-size: 70px;
+      cursor: default;
+      display: none;
+    }
+
+    .gameover span{
+      font-size: 20px;
+      cursor: pointer;
+      position: relative;
+      left: 50px;
+    }
+
+    .gameover span:hover {
+      color: orange;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="myBack" width="450" height="800" style="border-style:solid"></canvas>
+  <canvas id="myCanvas" width="420" height="660" style="border-style:groove"></canvas>
+  <div class="gameover" id="gameover">GAME OVER
+    <p><span id="restart" style="font-size: 40px; color: orange; left: 100px; border-style:groove">RESTART</span></p>
+    <p><span id="maxScore" style="font-size: 40px; color: yellow; left: 50px">0</span></p>
+  </div>
+  <script src="main.js"></script>
+	</body>
+</html>
