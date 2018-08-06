@@ -43,7 +43,7 @@ var ballpixel=canvas.width/7; // 볼(벽) 크기
 
 function drawCanvas(){
   var gwidth, gheight, cwidth, cheight;
-  if(canvas.height>ganvas.height){
+  if(canvas.height>=ganvas.height){
     gwidth = ganvas.width;
     gheight = ganvas.height;
     cheight = gheight*(7/11);
