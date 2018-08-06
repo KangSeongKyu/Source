@@ -9,7 +9,7 @@ baImage.onload = function(){
       baImage.src = "back2.png";
     }else if(score>=600&&score<900){
       baImage.src = "back3.png";
-    }else if(score>=900&&score<1350){
+    }else if(score>=900&&score<1200){
       baImage.src = "back4.png";
     }else{
       baImage.src = "back5.png";
@@ -38,7 +38,7 @@ var ctx = canvas.getContext('2d');
 ganvas.width = window.innerWidth-10;
 ganvas.height = window.innerHeight-10;
 canvas.width = window.innerWidth-10;
-canvas.height = (window.innerWidth-10)*(11/7);
+canvas.height = (ganvas.height)*(11/7);
 var ballpixel=canvas.width/7; // 볼(벽) 크기
 
 function drawCanvas(){
