@@ -17,18 +17,18 @@ baImage.onload = function(){
 	  gtx.drawImage(baImage,0,0,ganvas.width,ganvas.height);
 
 	  gtx.strokeStyle = 'white';
-	      gtx.font = '40px Bombardment';
-	      gtx.fillText("LIVE ", 30, 5%);
-	      gtx.fillStyle = 'white';
-	      gtx.font = '40px Bombardment';
-	      gtx.fillText(lives, 130, 5%);
+    gtx.font = '30px Bombardment';
+    gtx.fillText("LIVE ", 10, ganvas.height-50);
+    gtx.fillStyle = 'white';
+    gtx.font = '30px Bombardment';
+    gtx.fillText(lives, 40, ganvas.height-50);
 
-	      gtx.strokeStyle = 'white';
-	      gtx.font = '40px Bombardment';
-	      gtx.fillText("SCORE ", 30, 80%);
-	      gtx.fillStyle = 'white';
-	      gtx.font = '40px Bombardment';
-	      gtx.fillText(score, 160, 80%);//fixed
+    gtx.strokeStyle = 'white';
+    gtx.font = '30px Bombardment';
+    gtx.fillText("SCORE ", 60, ganvas.height-50);
+    gtx.fillStyle = 'white';
+    gtx.font = '30px Bombardment';
+    gtx.fillText(score, 120, ganvas.height-50);//fixed
 }
 
 ////////////////////////////////////////////////////////////////////////
@@ -37,8 +37,8 @@ var ctx = canvas.getContext('2d');
 ////////////////////////////////////////////////////////////////////////
 ganvas.width = window.innerWidth;
 ganvas.height = window.innerHeight;
-canvas.width = window.innerWidth*(0.90);
-canvas.height = window.innerWidth*(11/7)*(0.90);
+canvas.width = window.innerWidth;
+canvas.height = window.innerWidth*(11/7);
 ////////////////////////////////////////////////////////////////////////
 var tout; // setTimeout(detectCollision) 담는 변수
 var max; // 실행해서 나왔던 게임점수 중 가장 고득점 뽑는 변수
@@ -303,19 +303,19 @@ var render = function(){
       }
 		  gtx.drawImage(baImage,0,0,ganvas.width,ganvas.height);
 
-		 gtx.strokeStyle = 'white';
-		      gtx.font = '40px Bombardment';
-		      gtx.fillText("LIVE ", 30, 5%);
-		      gtx.fillStyle = 'white';
-		      gtx.font = '40px Bombardment';
-		      gtx.fillText(lives, 130, 5%);
+		  gtx.strokeStyle = 'white';
+      gtx.font = '30px Bombardment';
+      gtx.fillText("LIVE ", 10, ganvas.height-50);
+      gtx.fillStyle = 'white';
+      gtx.font = '30px Bombardment';
+      gtx.fillText(lives, 40, ganvas.height-50);
 
-		      gtx.strokeStyle = 'white';
-		      gtx.font = '40px Bombardment';
-		      gtx.fillText("SCORE ", 30, 80%);
-		      gtx.fillStyle = 'white';
-		      gtx.font = '40px Bombardment';
-		      gtx.fillText(score, 160, 80%);//fixed
+      gtx.strokeStyle = 'white';
+      gtx.font = '30px Bombardment';
+      gtx.fillText("SCORE ", 60, ganvas.height-50);
+      gtx.fillStyle = 'white';
+      gtx.font = '30px Bombardment';
+      gtx.fillText(score, 120, ganvas.height-50);//fixed
 		}
 	   	if(backReady){
 	         ctx.drawImage(backImage, 0, 0);
