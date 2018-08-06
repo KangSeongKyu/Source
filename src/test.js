@@ -38,7 +38,7 @@ var ctx = canvas.getContext('2d');
 ganvas.width = window.innerWidth-10;
 ganvas.height = window.innerHeight-10;
 canvas.width = window.innerWidth-10;
-canvas.height = (ganvas.height)*(7/11);
+canvas.height = (canvas.width)*(11/7);
 var ballpixel=canvas.width/7; // 볼(벽) 크기
 
 function drawCanvas(){
