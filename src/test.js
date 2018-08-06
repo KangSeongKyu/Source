@@ -54,7 +54,7 @@ function drawCanvas(){
     canvas.width = cwidth;
     canvas.height = cheight;
 
-    if(canvas.height>ganvas.height&&Math.abs(canvas.height-ganvas.height)<10){
+    if(canvas.height>ganvas.height&&Math.abs(canvas.height-ganvas.height)<20){
       drawCanvas();
     }
     ballpixel=canvas.width/7;
