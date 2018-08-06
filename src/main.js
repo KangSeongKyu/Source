@@ -21,14 +21,14 @@ baImage.onload = function(){
     gtx.fillText("LIVE ", 10, ganvas.height-20);
     gtx.fillStyle = 'white';
     gtx.font = '30px Bombardment';
-    gtx.fillText(lives, 40, ganvas.height-20);
+    gtx.fillText(lives, 100, ganvas.height-20);
 
     gtx.strokeStyle = 'white';
     gtx.font = '30px Bombardment';
-    gtx.fillText("SCORE ", 60, ganvas.height-20);
+    gtx.fillText("SCORE ", ganvas.width/2, ganvas.height-20);
     gtx.fillStyle = 'white';
     gtx.font = '30px Bombardment';
-    gtx.fillText(score, 120, ganvas.height-20);//fixed
+    gtx.fillText(score, (ganvas.width/2)+150, ganvas.height-20);//fixed
 }
 
 ////////////////////////////////////////////////////////////////////////
@@ -302,20 +302,20 @@ var render = function(){
         baImage.src = "back5.png";
       }
 		  gtx.drawImage(baImage,0,0,ganvas.width,ganvas.height);
-
-		  gtx.strokeStyle = 'white';
+    
+      gtx.strokeStyle = 'white';
       gtx.font = '30px Bombardment';
       gtx.fillText("LIVE ", 10, ganvas.height-20);
       gtx.fillStyle = 'white';
       gtx.font = '30px Bombardment';
-      gtx.fillText(lives, 40, ganvas.height-20);
+      gtx.fillText(lives, 100, ganvas.height-20);
 
       gtx.strokeStyle = 'white';
       gtx.font = '30px Bombardment';
-      gtx.fillText("SCORE ", 60, ganvas.height-20);
+      gtx.fillText("SCORE ", ganvas.width/2, ganvas.height-20);
       gtx.fillStyle = 'white';
       gtx.font = '30px Bombardment';
-      gtx.fillText(score, 120, ganvas.height-20);//fixed
+      gtx.fillText(score, (ganvas.width/2)+150, ganvas.height-20);//fixed
 		}
 	   	if(backReady){
 	         ctx.drawImage(backImage, 0, 0);
