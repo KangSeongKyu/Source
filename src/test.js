@@ -354,17 +354,12 @@ var render = function(){
 
 var downx, downy, upx, upy;
 
-document.addEventListener('touchmove', function(event) {
+addEventListener('touchend', function(event) {
+  event.preventDefault();
 
+  var touch = event.touches[0];
 
-    event.preventDefault();
-
-
-    var touch = event.touches[0];
-
-   ball.y = ball.y-ballpixel;
-    
-
+  alert("Touch x:" + touch.pageX + ", y:" + touch.pageY);
 }, false);
 
 addEventListener("keydown", function(e){
