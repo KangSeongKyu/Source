@@ -46,8 +46,8 @@ function drawCanvas(){
   if(canvas.height>ganvas.height){
     gwidth = ganvas.width;
     gheight = ganvas.height;
-    cwidth = (canvas.width)*0.8;
-    cheight = (canvas.height)*0.8;
+    cwidth = (canvas.width)*0.85;
+    cheight = (canvas.height)*0.85;
 
     ganvas.width = gwidth;
     ganvas.height = gheight;
