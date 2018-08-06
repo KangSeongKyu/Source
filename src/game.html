@@ -7,20 +7,42 @@
   <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
   <script type="text/javascript">
-      function resize_canvas(){
           ganvas = document.getElementById("myBack");
-          canvas = document.getElementById("mtCanvas")
-          if (ganvas.width  < window.innerWidth)
-          {   
-              ganvas.width = window.innerWidth-10;
-              canvas.width = window.innerWidth-10;
+          canvas = document.getElementById("myCanvas");
+          ganvas.width = window.innerWidth-10;
+          ganvas.height = window.innerHeight-10;
+          canvas.width = window.innerWidth-10;
+          canvas.height = (canvas.width)*(11/7);
+
+          function drawCanvas(){
+            var gwidth, gheight, cwidth, cheight;
+            if(canvas.height>ganvas.height){
+              gwidth = ganvas.width;
+              gheight = ganvas.height;
+              cwidth = (canvas.width)*0.85;
+              cheight = (canvas.height)*0.85;
+
+              ganvas.width = gwidth;
+              ganvas.height = gheight;
+              canvas.width = cwidth;
+              canvas.height = cheight;
+
+              if(canvas.height>ganvas.height&&Math.abs(canvas.height-ganvas.height)<(canvas.height/11)){
+                  drawCanvas();
+              }
+            }else{
+                gwidth = ganvas.width;
+                gheight = ganvas.height;
+                cwidth = canvas.width;
+                cheight = canvas.height;
+
+                ganvas.width = gwidth;
+                ganvas.height = gheight;
+                canvas.width = cwidth;
+                canvas.height = cheight;
+            }
+            return ganvas.width, ganvas.height, canvas.width, canvas.height;
           }
-          if (ganvas.height < window.innerHeight)
-          {
-              ganvas.height = window.innerHeight-10;
-              canvas.height = (canvas.width)*(11/7);
-          }
-      }
   </script>
   <style type="text/css">
     @font-face{
@@ -75,13 +97,13 @@
     }
   </style>
 </head>
-<body onresize="resize_canvas()">
+<body onresize="drawCanvas()">
   <canvas id="myBack" style="border-style:solid"></canvas>
   <canvas id="myCanvas" style="border-style:groove"></canvas>
   <div class="gameover" id="gameover" style="margin-top:60px">GAME OVER
     <p><span id="restart" style="font-size: 40px; color: blue; border-style:groove">RESTART</span></p>
     <p><span id="maxScore" style="font-size: 40px; color: green">0</span></p>
     </div>
-  <script src="test.js"></script>
+  <script src="main.js"></script>
   </body>
 </html>
