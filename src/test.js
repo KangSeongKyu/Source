@@ -17,18 +17,18 @@ baImage.onload = function(){
 	  gtx.drawImage(baImage,0,0,ganvas.width,ganvas.height);
 
 	  gtx.strokeStyle = 'white';
-	  gtx.font = '40px Bombardment';
-	  gtx.fillText("LIVE ", 30, 35);
-	  gtx.fillStyle = 'white';
-	  gtx.font = '40px Bombardment';
-	  gtx.fillText(lives, 130, 35);
+	      gtx.font = '40px Bombardment';
+	      gtx.fillText("LIVE ", 30, 5%);
+	      gtx.fillStyle = 'white';
+	      gtx.font = '40px Bombardment';
+	      gtx.fillText(lives, 130, 5%);
 
-	  gtx.strokeStyle = 'white';
-	  gtx.font = '40px Bombardment';
-	  gtx.fillText("SCORE ", 30, 610);
-	  gtx.fillStyle = 'white';
-	  gtx.font = '40px Bombardment';
-	  gtx.fillText(score, 160, 610);//fixed
+	      gtx.strokeStyle = 'white';
+	      gtx.font = '40px Bombardment';
+	      gtx.fillText("SCORE ", 30, 80%);
+	      gtx.fillStyle = 'white';
+	      gtx.font = '40px Bombardment';
+	      gtx.fillText(score, 160, 80%);//fixed
 }
 
 ////////////////////////////////////////////////////////////////////////
@@ -303,19 +303,19 @@ var render = function(){
       }
 		  gtx.drawImage(baImage,0,0,ganvas.width,ganvas.height);
 
-		  gtx.strokeStyle = 'white';
-		  gtx.font = '40px Bombardment';
-		  gtx.fillText("LIVE ", 30, 35);
-		  gtx.fillStyle = 'white';
-		  gtx.font = '40px Bombardment';
-		  gtx.fillText(lives, 130, 35);
+		 gtx.strokeStyle = 'white';
+		      gtx.font = '40px Bombardment';
+		      gtx.fillText("LIVE ", 30, 5%);
+		      gtx.fillStyle = 'white';
+		      gtx.font = '40px Bombardment';
+		      gtx.fillText(lives, 130, 5%);
 
-		  gtx.strokeStyle = 'white';
-		  gtx.font = '40px Bombardment';
-		  gtx.fillText("SCORE ", 30, 635);
-		  gtx.fillStyle = 'white';
-		  gtx.font = '40px Bombardment';
-		  gtx.fillText(score, 160, 635);//fixed
+		      gtx.strokeStyle = 'white';
+		      gtx.font = '40px Bombardment';
+		      gtx.fillText("SCORE ", 30, 80%);
+		      gtx.fillStyle = 'white';
+		      gtx.font = '40px Bombardment';
+		      gtx.fillText(score, 160, 80%);//fixed
 		}
 	   	if(backReady){
 	         ctx.drawImage(backImage, 0, 0);
