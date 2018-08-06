@@ -351,6 +351,19 @@ var render = function(){
 };
 ////////////////////////////////////////////////////////////////////////
 //키보드 이벤트//
+document.addEventListener('touchstart', function(event) {
+
+
+    alert(event.touches.length);
+
+}, false);
+
+addEventListener('touchstart', function(event) {
+
+
+    alert(event.touches.length);
+
+}, false);
 addEventListener("keydown", function(e){
   if(38 === e.keyCode){
      ball.y = ball.y-ballpixel;
