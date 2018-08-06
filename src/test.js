@@ -399,7 +399,7 @@ addEventListener('touchstart', function(event) {
   e.preventDefault();
 }, false);
 
-addEventListener('touchmove', function(event) {
+addEventListener('touchend', function(event) {
   var touch = event.touches[0];
   curx = parseInt(touch.clientX);
   cury = parseInt(touch.clientY);
