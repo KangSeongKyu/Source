@@ -11,16 +11,20 @@
           ganvas = document.getElementById("myBack");
           if (ganvas.width  < window.innerWidth)
           {
-              ganvas.width  = window.innerWidth;
+              ganvas.width  = window.innerWidth-10;
           }
 
           if (ganvas.height < window.innerHeight)
           {
-              ganvas.height = window.innerHeight;
+              ganvas.height = window.innerHeight-10;
           }
       }
   </script>
-  <style>
+  <style type="text/css">
+    @font-face{
+      font-family: "Bombardment";
+      src:url("Bombardment.ttf") format("truetype");
+    }
     html,
     body {
         width: 100%;
@@ -71,7 +75,7 @@
   <div class="gameover" id="gameover">GAME OVER
     <p><span id="restart" style="font-size: 30px; color: orange; border-style:groove">RESTART</span></p>
     <p><span id="maxScore" style="font-size: 30px; color: yellow">0</span></p>
-  </div>
+    </div>
   <script src="test.js"></script>
   </body>
 </html>
