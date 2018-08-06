@@ -388,19 +388,21 @@ var render = function(){
 };
 ////////////////////////////////////////////////////////////////////////
 //키보드 이벤트//
+
 var startx, starty;
 var curx, cury;
 var touch = null;
 addEventListener('touchstart', function(event) {
-  var touch = event.touches[0];
+  touch = event.touches[0];
   startx = parseInt(touch.clientX);
   starty = parseInt(touch.clientY);
   return startx, starty;
   e.preventDefault();
+  touch = null;
 }, false);
 
 addEventListener('touchend', function(event) {
-  var touch = event.touches[0];
+  touch = event.touches[0];
   curx = parseInt(touch.clientX);
   cury = parseInt(touch.clientY);
 
@@ -421,7 +423,8 @@ addEventListener('touchend', function(event) {
   starty = 0;
   curx = 0;
   cury = 0;
-  return startx, starty, curx, cury;
+  touch =null;
+  return startx, starty, curx, cury, touch;
 }, false);
 
 addEventListener("keydown", function(e){
