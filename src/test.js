@@ -54,7 +54,7 @@ function drawCanvas(){
     canvas.width = cwidth;
     canvas.height = cheight;
 
-    if(canvas.height>ganvas.height){
+    if(canvas.height>ganvas.height&&Math.abs(canvas.height-ganvas.height)<10){
       drawCanvas();
     }
     ballpixel=canvas.width/7;
@@ -72,7 +72,6 @@ function drawCanvas(){
   }
   return ganvas.width, ganvas.height, canvas.width, canvas.height, ballpixel;
 }
-
 drawCanvas();
 ////////////////////////////////////////////////////////////////////////
 var margin_left = (ganvas.width - canvas.width)/2;
