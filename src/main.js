@@ -35,44 +35,7 @@ baImage.onload = function(){
 var canvas = document.getElementById("myCanvas");
 var ctx = canvas.getContext('2d');
 ////////////////////////////////////////////////////////////////////////
-ganvas.width = window.innerWidth-10;
-ganvas.height = window.innerHeight-10;
-canvas.width = window.innerWidth-10;
-canvas.height = (canvas.width)*(11/7);
-var ballpixel=canvas.width/7; // 볼(벽) 크기
 
-function drawCanvas(){
-  var gwidth, gheight, cwidth, cheight;
-  if(canvas.height>ganvas.height){
-    gwidth = ganvas.width;
-    gheight = ganvas.height;
-    cwidth = (canvas.width)*0.85;
-    cheight = (canvas.height)*0.85;
-
-    ganvas.width = gwidth;
-    ganvas.height = gheight;
-    canvas.width = cwidth;
-    canvas.height = cheight;
-
-    if(canvas.height>ganvas.height&&Math.abs(canvas.height-ganvas.height)<(canvas.height/11)){
-      drawCanvas();
-    }
-    ballpixel=canvas.width/7;
-  }else{
-    gwidth = ganvas.width;
-    gheight = ganvas.height;
-    cwidth = canvas.width;
-    cheight = canvas.height;
-    ballpixel=canvas.width/7;
-
-    ganvas.width = gwidth;
-    ganvas.height = gheight;
-    canvas.width = cwidth;
-    canvas.height = cheight;
-  }
-  return ganvas.width, ganvas.height, canvas.width, canvas.height, ballpixel;
-}
-drawCanvas();
 ////////////////////////////////////////////////////////////////////////
 var margin_left = (ganvas.width - canvas.width)/2;
 $('#myCanvas').css("margin-left", margin_left);
