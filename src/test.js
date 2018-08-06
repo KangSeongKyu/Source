@@ -9,7 +9,7 @@ baImage.onload = function(){
       baImage.src = "back2.png";
     }else if(score>=600&&score<900){
       baImage.src = "back3.png";
-    }else if(score>=900&&score<1200){
+    }else if(score>=900&&score<1350){
       baImage.src = "back4.png";
     }else{
       baImage.src = "back5.png";
@@ -54,7 +54,7 @@ function drawCanvas(){
     canvas.width = cwidth;
     canvas.height = cheight;
 
-    if(canvas.height>ganvas.height&&Math.abs(canvas.height-ganvas.height)<20){
+    if(canvas.height>ganvas.height&&Math.abs(canvas.height-ganvas.height)<(canvas.height/11)){
       drawCanvas();
     }
     ballpixel=canvas.width/7;
@@ -389,14 +389,53 @@ var render = function(){
 ////////////////////////////////////////////////////////////////////////
 //키보드 이벤트//
 var downx, downy, upx, upy;
+var touchX;
+
+function touchMoveHandler1(e){
+  e.preventDefault();
+  var touch = e.touches[0]||e.changedTouches[0];
+  touchX = touch.pageX;
+}
+function touchMoveHandler2(e){
+  var touch = e.touches[0]||e.changedTouches[0];
+  var moveX = touch.pageX;
+
+  var gap;
+  if(moveX > touchX){
+    gap = moveX - touchX;
+  }else{
+    gap = touchX = moveX;
+  }
+
+  if(gap>50){
+    if(moveX>touchX){
+      alert("right!");
+    }else{
+      alert("left!");
+    }
+  }
+}
+
+function touchMoveHandler3(e){
+  var touch = e.touches[0] || e.changedTouches[0];
+  var chX = Math.abs(touchX-touch.pageX);
+  var chY = Math.abs(touchY-touch.pageY);
+  if (chX > chY){
+    isPrevent = true;
+  }else{
+    isPrevent=false;
+  }
+
+  if(isPrevent){
+    e.preventDefault();
+  }else{
+    this.moved = true;
+  }
+}
 
 addEventListener('touchstart', function(event) {
-  
-
   var touch = event.touches[0];
-
   ball.y = ball.y - ballpixel;
-
   e.preventDefault();
 }, false);
 
