@@ -35,11 +35,12 @@ baImage.onload = function(){
 var canvas = document.getElementById("myCanvas");
 var ctx = canvas.getContext('2d');
 ////////////////////////////////////////////////////////////////////////
+ganvas = document.getElementById("myBack");
+canvas = document.getElementById("mtCanvas");
 ganvas.width = window.innerWidth-10;
 ganvas.height = window.innerHeight-10;
-canvas.width = window.innerWidth-10;
+canvas.width = ganvas.width;
 canvas.height = (canvas.width)*(11/7);
-var ballpixel=canvas.width/7; // 볼(벽) 크기
 
 function drawCanvas(){
   var gwidth, gheight, cwidth, cheight;
@@ -55,22 +56,20 @@ function drawCanvas(){
     canvas.height = cheight;
 
     if(canvas.height>ganvas.height&&Math.abs(canvas.height-ganvas.height)<(canvas.height/11)){
-      drawCanvas();
+        drawCanvas();
     }
-    ballpixel=canvas.width/7;
   }else{
-    gwidth = ganvas.width;
-    gheight = ganvas.height;
-    cwidth = canvas.width;
-    cheight = canvas.height;
-    ballpixel=canvas.width/7;
+      gwidth = ganvas.width;
+      gheight = ganvas.height;
+      cwidth = canvas.width;
+      cheight = canvas.height;
 
-    ganvas.width = gwidth;
-    ganvas.height = gheight;
-    canvas.width = cwidth;
-    canvas.height = cheight;
+      ganvas.width = gwidth;
+      ganvas.height = gheight;
+      canvas.width = cwidth;
+      canvas.height = cheight;
   }
-  return ganvas.width, ganvas.height, canvas.width, canvas.height, ballpixel;
+  return ganvas.width, ganvas.height, canvas.width, canvas.height;
 }
 drawCanvas();
 ////////////////////////////////////////////////////////////////////////
