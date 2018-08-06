@@ -355,20 +355,7 @@ var render = function(){
 var downx, downy, upx, upy;
 
 addEventListener('touchstart', function(event) {
-  downx = event.pageX;
-  downy = event.pageY;
-}, false);
-
-addEventListener('touchend', function(event) {
-  upx = event.pageX;
-  upy = event.pageY;
-
-  if(downy-upy > 0 &&Math.abs(downy-upy)>Math.abs(downx-upx)){
-    ball.y = ball.y-ballpixel;
-  }
-  if(downy-upy > 0 &&Math.abs(downy-upy)>Math.abs(downx-upx)){
-    ball.y = ball.y+ballpixel;
-  }
+  ball.y = ball.y-ballpixel;
 }, false);
 
 addEventListener("keydown", function(e){
