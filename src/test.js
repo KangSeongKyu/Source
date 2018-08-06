@@ -1,5 +1,3 @@
-
-
 var ganvas = document.getElementById("myBack");
 var gtx = ganvas.getContext('2d');
 var baImage = new Image();
@@ -37,33 +35,10 @@ baImage.onload = function(){
 var canvas = document.getElementById("myCanvas");
 var ctx = canvas.getContext('2d');
 ////////////////////////////////////////////////////////////////////////
-function resizeGame() {
-    //var canvas = document.getElementById('myCanvas');
-    var widthToHeight = 4 / 3;
-    var newWidth = window.innerWidth;
-    var newHeight = window.innerHeight;
-    var newWidthToHeight = newWidth / newHeight;
-
-    if (newWidthToHeight > widthToHeight) {
-        newWidth = newHeight * widthToHeight;
-        canvas.style.height = newHeight + 'px';
-        canvas.style.width = newWidth + 'px';
-    } else {
-        newHeight = newWidth / widthToHeight;
-        canvas.style.width = newWidth + 'px';
-        canvas.style.height = newHeight + 'px';
-    }
-
-    canvas.style.marginTop = (-newHeight / 2) + 'px';
-    canvas.style.marginLeft = (-newWidth / 2) + 'px';
-
-    //var ganvas = document.getElementById('myBack');
-    ganvas.width = newWidth;
-    ganvas.height = newHeight;
-}
-
-window.addEventListener('resize', resizeGame, false);
-window.addEventListener('orientationchange', resizeGame, false);
+ganvas.width = window.innerWidth;
+ganvas.height = window.innerHeight;
+canvas.width = window.innerWidth;
+canvas.height = window.innerWidth*(11/7);
 ////////////////////////////////////////////////////////////////////////
 var tout; // setTimeout(detectCollision) 담는 변수
 var max; // 실행해서 나왔던 게임점수 중 가장 고득점 뽑는 변수
@@ -432,12 +407,20 @@ addEventListener("keydown", function(e){
   render();
   console.log("Cwidth:", canvas.width);
   console.log("Gwidth:", ganvas.width);
+  console.log("Cheight:", canvas.height);
+  console.log("Gheight:", ganvas.height);
+  console.log("windowwidth:", window.innerWidth);
+  console.log("windowHeight:", window.innerHeight);
 },false);
 ////////////////////////////////////////////////////////////////////////
 //게임 실행할 main 함수//
 var main = function(){
   console.log("Cwidth:", canvas.width);
   console.log("Gwidth:", ganvas.width);
+  console.log("Cheight:", canvas.height);
+  console.log("Gheight:", ganvas.height);
+  console.log("windowwidth:", window.innerWidth);
+  console.log("windowHeight:", window.innerHeight);
   if(!isGameOver){
   	render();
   }
