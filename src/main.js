@@ -39,6 +39,25 @@ ganvas.width = window.innerWidth-10;
 ganvas.height = window.innerHeight-10;
 canvas.width = window.innerWidth-10;
 canvas.height = (window.innerWidth-10)*(11/7);
+var ballpixel=canvas.width/7; // 볼(벽) 크기
+
+function drawCanvas(){
+    if(canvas.height>ganvas.height){
+    ganvas.width = window.innerWidth-10;
+    ganvas.height = window.innerHeight-10;
+    canvas.width = (window.innerHeight-10)*(7/11)
+    canvas.height = window.innerHeight-10
+    ballpixel=canvas.height/11;
+  }else{
+    ganvas.width = window.innerWidth-10;
+    ganvas.height = window.innerHeight-10;
+    canvas.width = window.innerWidth-10;
+    canvas.height = (window.innerWidth-10)*(11/7);
+    ballpixel=canvas.width/7;
+  }
+  return ganvas.width, ganvas.height, canvas.width, canvas.height, ballpixel;
+}
+drawCanvas();
 ////////////////////////////////////////////////////////////////////////
 var tout; // setTimeout(detectCollision) 담는 변수
 var max; // 실행해서 나왔던 게임점수 중 가장 고득점 뽑는 변수
@@ -48,7 +67,6 @@ var maxScore = [];
 var cnt = 15; // 키 갯수
 var point=0; // 점수 
 var speed = 5; // 레이저 속도
-var ballpixel=canvas.width/7; // 볼(벽) 크기
 var px=5; //캐릭터 최초 시작 x축 지점
 var py=10; //캐릭터 최초 시작 y축 지점
 ////////////////////////////////////////////////////////////////////////
