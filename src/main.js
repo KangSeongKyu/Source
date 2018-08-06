@@ -53,7 +53,7 @@ function drawCanvas(){
     canvas.width = window.innerWidth-10;
     canvas.height = (window.innerWidth-10)*(11/7);
   }
-  return ganvas.width, ganvas.height, canvas.width, canavas.height;
+  return ganvas.width, ganvas.height, canvas.width, canvas.height;
 }
 drawCanvas();
 ////////////////////////////////////////////////////////////////////////
