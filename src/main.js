@@ -3,7 +3,7 @@ var gtx = ganvas.getContext('2d');
 var baImage = new Image();
 baImage.src = "back.png";
 baImage.onload = function(){
-	  if(score>=0&&score<300){
+    if(score>=0&&score<300){
       baImage.src = "back1.png";
     }else if(score>=300&&score<600){
       baImage.src = "back2.png";
@@ -14,9 +14,9 @@ baImage.onload = function(){
     }else{
       baImage.src = "back5.png";
     }
-	  gtx.drawImage(baImage,0,0,ganvas.width,ganvas.height);
+    gtx.drawImage(baImage,0,0,ganvas.width,ganvas.height);
 
-	  gtx.strokeStyle = 'white';
+    gtx.strokeStyle = 'white';
     gtx.font = '30px Bombardment';
     gtx.fillText("LIVE ", 10, ganvas.height-20);
     gtx.fillStyle = 'white';
@@ -38,27 +38,45 @@ var ctx = canvas.getContext('2d');
 ganvas.width = window.innerWidth-10;
 ganvas.height = window.innerHeight-10;
 canvas.width = window.innerWidth-10;
-canvas.height = (window.innerWidth-10)*(11/7);
+canvas.height = (canvas.width)*(11/7);
 var ballpixel=canvas.width/7; // 볼(벽) 크기
 
 function drawCanvas(){
-    if(canvas.height>ganvas.height){
-    ganvas.width = window.innerWidth-10;
-    ganvas.height = window.innerHeight-10;
-    canvas.width = (window.innerHeight-10)*(7/11)
-    canvas.height = window.innerHeight-10
-    ballpixel=canvas.height/11;
-  }else{
-    ganvas.width = window.innerWidth-10;
-    ganvas.height = window.innerHeight-10;
-    canvas.width = window.innerWidth-10;
-    canvas.height = (window.innerWidth-10)*(11/7);
+  var gwidth, gheight, cwidth, cheight;
+  if(canvas.height>ganvas.height){
+    gwidth = ganvas.width;
+    gheight = ganvas.height;
+    cwidth = (canvas.width)*0.85;
+    cheight = (canvas.height)*0.85;
+
+    ganvas.width = gwidth;
+    ganvas.height = gheight;
+    canvas.width = cwidth;
+    canvas.height = cheight;
+
+    if(canvas.height>ganvas.height&&Math.abs(canvas.height-ganvas.height)<(canvas.height/11)){
+      drawCanvas();
+    }
     ballpixel=canvas.width/7;
+  }else{
+    gwidth = ganvas.width;
+    gheight = ganvas.height;
+    cwidth = canvas.width;
+    cheight = canvas.height;
+    ballpixel=canvas.width/7;
+
+    ganvas.width = gwidth;
+    ganvas.height = gheight;
+    canvas.width = cwidth;
+    canvas.height = cheight;
   }
   return ganvas.width, ganvas.height, canvas.width, canvas.height, ballpixel;
 }
 drawCanvas();
 ////////////////////////////////////////////////////////////////////////
+var margin_left = (ganvas.width - canvas.width)/2;
+$('#myCanvas').css("margin-left", margin_left);
+
 var tout; // setTimeout(detectCollision) 담는 변수
 var max; // 실행해서 나왔던 게임점수 중 가장 고득점 뽑는 변수
 var score = 0;
@@ -70,6 +88,7 @@ var speed = 5; // 레이저 속도
 var px=5; //캐릭터 최초 시작 x축 지점
 var py=10; //캐릭터 최초 시작 y축 지점
 ////////////////////////////////////////////////////////////////////////
+
 var backImage = new Image(); // 배경화면
  backImage.src = "back.png";
  backImage.onload = function(){
@@ -83,9 +102,9 @@ var backImage = new Image(); // 배경화면
  ballImage.src = "ryan.png";
  ballImage.onload = function(){
    if(lives==2){
-   	   ctx.drawImage(ballImage, ball.x, ball.y, ballpixel, ballpixel);
+       ctx.drawImage(ballImage, ball.x, ball.y, ballpixel, ballpixel);
    }else{
-   	   ctx.drawImage(bombImage, ball.x, ball.y, ballpixel, ballpixel);
+       ctx.drawImage(bombImage, ball.x, ball.y, ballpixel, ballpixel);
    }
 
  };
@@ -124,11 +143,11 @@ function drawKey(a,b){
   }
   if(cnt==0){
     keyx.push(ballpixel,ballpixel,ballpixel,ballpixel,ballpixel,
-			  (ballpixel*3),(ballpixel*3),(ballpixel*3),(ballpixel*3),(ballpixel*3),
-			  (ballpixel*5),(ballpixel*5),(ballpixel*5),(ballpixel*5),(ballpixel*5));
+        (ballpixel*3),(ballpixel*3),(ballpixel*3),(ballpixel*3),(ballpixel*3),
+        (ballpixel*5),(ballpixel*5),(ballpixel*5),(ballpixel*5),(ballpixel*5));
     keyy.push(ballpixel,(ballpixel*3),(ballpixel*5),(ballpixel*7),(ballpixel*9),
-			  ballpixel,(ballpixel*3),(ballpixel*5),(ballpixel*7),(ballpixel*9),
-			  ballpixel,(ballpixel*3),(ballpixel*5),(ballpixel*7),(ballpixel*9));
+        ballpixel,(ballpixel*3),(ballpixel*5),(ballpixel*7),(ballpixel*9),
+        ballpixel,(ballpixel*3),(ballpixel*5),(ballpixel*7),(ballpixel*9));
     cnt=15;
   }
   if(point>=150){//fixed
@@ -171,7 +190,7 @@ var laserB = {}; //가로 레이저 관련 코드
 laserB.x = -(ballpixel);
 laserB.y = -(ballpixel);
 function movelaserB(){
-	var aY = [ballpixel,(ballpixel*3),(ballpixel*5),(ballpixel*7),(ballpixel*9)];
+  var aY = [ballpixel,(ballpixel*3),(ballpixel*5),(ballpixel*7),(ballpixel*9)];
     var ry = ran(0,aY.length);
  
     ctx.drawImage(laserBImage, laserB.x += speed, laserB.y, (ballpixel*2), ballpixel);
@@ -190,7 +209,7 @@ function movelaserB(){
 var laserBImage = new Image();
 laserBImage.src = "laserR.png";
 laserBImage.onload = function(){
-	laserBReady = true;
+  laserBReady = true;
 };
 ////////////////////////////////////////////////////////////////////////
 var collision = {};
@@ -217,37 +236,37 @@ function detectCollision(){
     (ball.y>a1&&ball.y<=a3-(ballpixel/6)&&ball.x==laserA.x)){
     bool_collision = true;
     if(lives <= 0){
-    	lives = 0;
-    	gameOver();
+      lives = 0;
+      gameOver();
     } else {
-    	lives--;
-  	}
+      lives--;
+    }
   }
   return lives;
   
 }
 ////////////////////////////////////////////////////////////////////////
 function gameOver(){
-	isGameOver = true;
-	bool_bomb = false;
-	keyx = [];
-	keyy = [];
-	cnt = 15;
-	point = 0;//fixed
-	maxScore.push(score);
-	var max = Math.max.apply(null, maxScore);
-	$("#maxScore").text("MAX SCORE: "+max);
-	clearTimeout(tout);
-	$("#gameover").css("display","block");
+  isGameOver = true;
+  bool_bomb = false;
+  keyx = [];
+  keyy = [];
+  cnt = 15;
+  point = 0;//fixed
+  maxScore.push(score);
+  var max = Math.max.apply(null, maxScore);
+  $("#maxScore").text("MAX SCORE: "+max);
+  clearTimeout(tout);
+  $("#gameover").css("display","block");
 }
 ////////////////////////////////////////////////////////////////////////
 function restart(){
-	isGameOver = false;
-	bool_bomb = true;
-	lives=2;
-	score=0;
-	restartOpt();
-	$("#gameover").css("display","none");
+  isGameOver = false;
+  bool_bomb = true;
+  lives=2;
+  score=0;
+  restartOpt();
+  $("#gameover").css("display","none");
 }
 function restartOpt(){
   speed = 5;
@@ -264,11 +283,11 @@ function restartOpt(){
   ballpixel,(ballpixel*3),(ballpixel*5),(ballpixel*7),(ballpixel*9),
   ballpixel,(ballpixel*3),(ballpixel*5),(ballpixel*7),(ballpixel*9)];
   for(var i=0; i<keyx.length; i++){
-	  ctx.drawImage(keyImage, keyx[i]+(ballpixel/4), keyy[i]+(ballpixel/4), (ballpixel/2), (ballpixel/2));
-  }	
+    ctx.drawImage(keyImage, keyx[i]+(ballpixel/4), keyy[i]+(ballpixel/4), (ballpixel/2), (ballpixel/2));
+  } 
 }
 $("#restart").click(function(){
-	restart();
+  restart();
 });
 /////////////////////////////////////////////////////////////////////////
 var isGameOver = false;
@@ -304,22 +323,22 @@ var lastup = 0;
 var acDelta =0;
 var msFrame = 1000;
 var render = function(){
- 	var delta = Date.now() - lastup;
- 	if(acDelta > msFrame){
- 		acDelta = 0;
-	 	if(baReady){
-		  if(score>=0&&score<300){
-		  	baImage.src = "back1.png";
-		  }else if(score>=300&&score<600){
-		  	baImage.src = "back2.png";
-		  }else if(score>=600&&score<900){
-		  	baImage.src = "back3.png";
-		  }else if(score>=900&&score<1200){
+  var delta = Date.now() - lastup;
+  if(acDelta > msFrame){
+    acDelta = 0;
+    if(baReady){
+      if(score>=0&&score<300){
+        baImage.src = "back1.png";
+      }else if(score>=300&&score<600){
+        baImage.src = "back2.png";
+      }else if(score>=600&&score<900){
+        baImage.src = "back3.png";
+      }else if(score>=900&&score<1200){
         baImage.src = "back4.png";
       }else{
         baImage.src = "back5.png";
       }
-		  gtx.drawImage(baImage,0,0,ganvas.width,ganvas.height);
+      gtx.drawImage(baImage,0,0,ganvas.width,ganvas.height);
     
       gtx.strokeStyle = 'white';
       gtx.font = '30px Bombardment';
@@ -334,51 +353,126 @@ var render = function(){
       gtx.fillStyle = 'white';
       gtx.font = '30px Bombardment';
       gtx.fillText(score, (ganvas.width/2)+100, ganvas.height-20);//fixed
-		}
-	   	if(backReady){
-	         ctx.drawImage(backImage, 0, 0);
-	    }
-	    if(wallReady){
-	        for (var y = 0; y < canvas.height-ballpixel+1; y=y+(ballpixel*2)) { 
-	            for (var x = 0; x < canvas.width-ballpixel+1; x=x+(ballpixel*2)) { 
-	                ctx.drawImage(wall, x, y, ballpixel, ballpixel); 
-	            }
-	        } 
-	    }
-	    if(ballReady){
-			if(lives==2){
-		   	   ctx.drawImage(ballImage, ball.x, ball.y, ballpixel, ballpixel);
-		   }else{
-		   	   ctx.drawImage(bombImage, ball.x, ball.y, ballpixel, ballpixel);
-		   }
-	    }
-	    if(keyReady){
-	      for(var i=0; i<keyx.length; i++){
-	        ctx.drawImage(keyImage, keyx[i]+(ballpixel/4), keyy[i]+(ballpixel/4), (ballpixel/2), (ballpixel/2));
-	      }
-	    }
-	    if(laserAReady){
-	    	movelaserA();
-	    }
-	    if(laserBReady){
-	    	movelaserB();
-	    }
+    }
+      if(backReady){
+           ctx.drawImage(backImage, 0, 0);
+      }
+      if(wallReady){
+          for (var y = 0; y < canvas.height-ballpixel+1; y=y+(ballpixel*2)) { 
+              for (var x = 0; x < canvas.width-ballpixel+1; x=x+(ballpixel*2)) { 
+                  ctx.drawImage(wall, x, y, ballpixel, ballpixel); 
+              }
+          } 
+      }
+      if(ballReady){
+      if(lives==2){
+           ctx.drawImage(ballImage, ball.x, ball.y, ballpixel, ballpixel);
+       }else{
+           ctx.drawImage(bombImage, ball.x, ball.y, ballpixel, ballpixel);
+       }
+      }
+      if(keyReady){
+        for(var i=0; i<keyx.length; i++){
+          ctx.drawImage(keyImage, keyx[i]+(ballpixel/4), keyy[i]+(ballpixel/4), (ballpixel/2), (ballpixel/2));
+        }
+      }
+      if(laserAReady){
+        movelaserA();
+      }
+      if(laserBReady){
+        movelaserB();
+      }
     }else{
-    	acDelta += delta;
+      acDelta += delta;
     }
 };
 ////////////////////////////////////////////////////////////////////////
 //키보드 이벤트//
-var downx, downy, upx, upy;
 
+var startx, starty;
+var curx, cury;
+var touch = null;
 addEventListener('touchstart', function(event) {
+  touch = event.touches[0];
+  startx = parseInt(touch.clientX);
+  starty = parseInt(touch.clientY);
   
-
-  var touch = event.touches[0];
-
-  ball.y = ball.y - ballpixel;
-
   e.preventDefault();
+  touch = null;
+  return startx, starty, touch;
+}, false);
+
+addEventListener('touchmove', function(event) {
+  touch = event.touches[0];
+  curx = parseInt(touch.pageX);
+  cury = parseInt(touch.pageY);
+  touch = null;
+  return curx, cury, touch;
+  e.preventDefault();
+  
+}, false);
+
+addEventListener('touchend', function(event) {
+  if((starty-cury > 0)&&(Math.abs(starty-cury)>Math.abs(startx-curx))){
+    ball.y = ball.y-ballpixel;
+  }
+  if((starty-cury < 0)&&(Math.abs(starty-cury)>Math.abs(startx-curx))){
+    ball.y = ball.y+ballpixel;
+  }
+  if((startx-curx > 0)&&(Math.abs(starty-cury)<Math.abs(startx-curx))){
+    ball.x = ball.x-ballpixel;
+  }
+  if((startx-curx < 0)&&(Math.abs(starty-cury)<Math.abs(startx-curx))){
+    ball.x = ball.x+ballpixel;
+  }
+  if(ball.x <=0){
+     ball.x=0;
+  }
+  if(ball.x>=canvas.width-ballpixel){
+     ball.x = canvas.width-ballpixel;
+  }
+  if(ball.y <=0){
+     ball.y=0;
+  }
+  if(ball.y>=canvas.height-ballpixel){
+     ball.y = canvas.height-ballpixel;
+  }
+  for (var i = 0; i < canvas.height-ballpixel+1; i=i+(ballpixel*2)){ 
+     for (var j = 0; j < canvas.width-ballpixel+1; j=j+(ballpixel*2)){
+        if(ball.x==j && ball.y==i){
+           if((starty-cury > 0)&&(Math.abs(starty-cury)>Math.abs(startx-curx))){ // up
+              ball.x = ball.x;
+              ball.y = ball.y+ballpixel;
+           }
+           if((starty-cury < 0)&&(Math.abs(starty-cury)>Math.abs(startx-curx))){ //down
+              ball.x = ball.x;
+              ball.y = ball.y-ballpixel;
+           }
+           if((startx-curx > 0)&&(Math.abs(starty-cury)<Math.abs(startx-curx))){ //left
+              ball.x = ball.x+ballpixel;
+              ball.y = ball.y;
+           }
+           if((startx-curx < 0)&&(Math.abs(starty-cury)<Math.abs(startx-curx))){ //right
+              ball.x = ball.x-ballpixel;
+              ball.y = ball.y;
+           }
+        }
+     }
+  }
+  for(var i=0; i<keyx.length; i++){
+    if(ball.x == keyx[i]&& ball.y==keyy[i]){
+      drawKey(keyx, keyy);
+      score=score+10;
+    }
+  }
+  render();
+  e.preventDefault();
+  touch = null;
+  startx =0;
+  starty = 0;
+  curx = 0;
+  cury = 0;
+  return startx, starty, curx, cury, touch;
 }, false);
 
 addEventListener("keydown", function(e){
@@ -435,29 +529,17 @@ addEventListener("keydown", function(e){
     }
   }
   render();
-  console.log("Cwidth:", canvas.width);
-  console.log("Gwidth:", ganvas.width);
-  console.log("Cheight:", canvas.height);
-  console.log("Gheight:", ganvas.height);
-  console.log("windowwidth:", window.innerWidth);
-  console.log("windowHeight:", window.innerHeight);
 },false);
 ////////////////////////////////////////////////////////////////////////
 //게임 실행할 main 함수//
 var main = function(){
-  console.log("Cwidth:", canvas.width);
-  console.log("Gwidth:", ganvas.width);
-  console.log("Cheight:", canvas.height);
-  console.log("Gheight:", ganvas.height);
-  console.log("windowwidth:", window.innerWidth);
-  console.log("windowHeight:", window.innerHeight);
   if(!isGameOver){
-  	render();
+    render();
   }
   if(lives<2){
-  	tout = setTimeout("detectCollision()", 2000);
+    tout = setTimeout("detectCollision()", 2000);
   }else{
-  	detectCollision();
+    detectCollision();
   }
   requestAnimationFrame(main);
 };
