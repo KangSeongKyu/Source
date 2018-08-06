@@ -25,10 +25,10 @@ baImage.onload = function(){
 
 	  gtx.strokeStyle = 'white';
 	  gtx.font = '40px Bombardment';
-	  gtx.fillText("SCORE ", 30, 635);
+	  gtx.fillText("SCORE ", 30, 610);
 	  gtx.fillStyle = 'white';
 	  gtx.font = '40px Bombardment';
-	  gtx.fillText(score, 160, 635);//fixed
+	  gtx.fillText(score, 160, 610);//fixed
 }
 
 ////////////////////////////////////////////////////////////////////////
@@ -37,8 +37,8 @@ var ctx = canvas.getContext('2d');
 ////////////////////////////////////////////////////////////////////////
 ganvas.width = window.innerWidth;
 ganvas.height = window.innerHeight;
-canvas.width = window.innerWidth*(0.95);
-canvas.height = window.innerWidth*(11/7)*(0.95);
+canvas.width = window.innerWidth*(0.90);
+canvas.height = window.innerWidth*(11/7)*(0.90);
 ////////////////////////////////////////////////////////////////////////
 var tout; // setTimeout(detectCollision) 담는 변수
 var max; // 실행해서 나왔던 게임점수 중 가장 고득점 뽑는 변수
@@ -358,7 +358,7 @@ addEventListener('touchstart', function(event) {
 
   var touch = event.touches[0];
 
-  alert("Touch x:" + touch.pageX + ", y:" + touch.pageY);
+  ball.y = ball.y - ballpixel;
 
   e.preventDefault();
 }, false);
