@@ -389,17 +389,36 @@ var render = function(){
 ////////////////////////////////////////////////////////////////////////
 //키보드 이벤트//
 
-addEventListener("touchstart", touchHandler);
-addEventListener("touchmove", touchHandler);
+var startx, starty;
+var curx, cury;
+var touchobj = null;
+addEventListener("touchstart", function(e){
+  touchobj = e.changeTouches[0];
+  startx = parseInt(touchobj.clientX);
+  starty = parseInt(touchobj.clientY);
+  e.preventDefault();
+}, false);
+addEventListener("touchmove", function(e){
+  touchobj = e.changeTouches[0];
+  curx = parseInt(touchobj.clientX);
+  cury = parseInt(touchobj.clientY);
 
-function touchHandler(e) {
-    if(e.touches) {
-        playerX = e.touches[0].pageX - canvas.offsetLeft - playerWidth / 2;
-        playerY = e.touches[0].pageY - canvas.offsetTop - playerHeight / 2;
-        console.log("Touch: ", " x: ", playerX, ", y: ", playerY);
-        e.preventDefault();
-    }
-}
+  if((starty-cury > 0)&&(Math.abs(starty-cury)>Math.abs(startx-curx))){
+    ball.y = ball.y-ballpixel;
+  }
+  if((starty-cury < 0)&&(Math.abs(starty-cury)>Math.abs(startx-curx))){
+    ball.y = ball.y+ballpixel;
+  }
+  if((startx-curx > 0)&&(Math.abs(starty-cury)<Math.abs(startx-curx))){
+    ball.x = ball.x-ballpixel;
+  }
+  if((startx-curx > 0)&&(Math.abs(starty-cury)<Math.abs(startx-curx))){
+    ball.x = ball.x+ballpixel;
+  }
+
+  e.preventDefault();
+}, false);
+
 addEventListener("keydown", function(e){
   if(38 === e.keyCode){
      ball.y = ball.y-ballpixel;
