@@ -388,57 +388,18 @@ var render = function(){
 };
 ////////////////////////////////////////////////////////////////////////
 //키보드 이벤트//
-var downx, downy, upx, upy;
-var touchX;
 
-function touchMoveHandler1(e){
-  e.preventDefault();
-  var touch = e.touches[0]||e.changedTouches[0];
-  touchX = touch.pageX;
-}
-function touchMoveHandler2(e){
-  var touch = e.touches[0]||e.changedTouches[0];
-  var moveX = touch.pageX;
+addEventListener("touchstart", touchHandler);
+addEventListener("touchmove", touchHandler);
 
-  var gap;
-  if(moveX > touchX){
-    gap = moveX - touchX;
-  }else{
-    gap = touchX = moveX;
-  }
-
-  if(gap>50){
-    if(moveX>touchX){
-      alert("right!");
-    }else{
-      alert("left!");
+function touchHandler(e) {
+    if(e.touches) {
+        playerX = e.touches[0].pageX - canvas.offsetLeft - playerWidth / 2;
+        playerY = e.touches[0].pageY - canvas.offsetTop - playerHeight / 2;
+        console.log("Touch: ", " x: ", playerX, ", y: ", playerY);
+        e.preventDefault();
     }
-  }
 }
-
-function touchMoveHandler3(e){
-  var touch = e.touches[0] || e.changedTouches[0];
-  var chX = Math.abs(touchX-touch.pageX);
-  var chY = Math.abs(touchY-touch.pageY);
-  if (chX > chY){
-    isPrevent = true;
-  }else{
-    isPrevent=false;
-  }
-
-  if(isPrevent){
-    e.preventDefault();
-  }else{
-    this.moved = true;
-  }
-}
-
-addEventListener('touchstart', function(event) {
-  var touch = event.touches[0];
-  ball.y = ball.y - ballpixel;
-  e.preventDefault();
-}, false);
-
 addEventListener("keydown", function(e){
   if(38 === e.keyCode){
      ball.y = ball.y-ballpixel;
