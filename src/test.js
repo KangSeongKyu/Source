@@ -37,8 +37,8 @@ var ctx = canvas.getContext('2d');
 ////////////////////////////////////////////////////////////////////////
 ganvas.width = window.innerWidth;
 ganvas.height = window.innerHeight;
-canvas.width = window.innerWidth;
-canvas.height = window.innerWidth*(11/7);
+canvas.width = window.innerWidth*(0.8);
+canvas.height = window.innerWidth*(11/7)*(0.8);
 ////////////////////////////////////////////////////////////////////////
 var tout; // setTimeout(detectCollision) 담는 변수
 var max; // 실행해서 나왔던 게임점수 중 가장 고득점 뽑는 변수
@@ -362,8 +362,8 @@ document.addEventListener('touchmove', function(event) {
 
     var touch = event.touches[0];
 
-
-    alert("Touch x:" + touch.pageX + ", y:" + touch.pageY);
+   ball.y = ball.y-ballpixel;
+    
 
 }, false);
 
