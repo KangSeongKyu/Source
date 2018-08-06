@@ -422,9 +422,50 @@ addEventListener('touchend', function(event) {
   if((startx-curx > 0)&&(Math.abs(starty-cury)<Math.abs(startx-curx))){
     ball.x = ball.x-ballpixel;
   }
-  if((startx-curx > 0)&&(Math.abs(starty-cury)<Math.abs(startx-curx))){
+  if((startx-curx < 0)&&(Math.abs(starty-cury)<Math.abs(startx-curx))){
     ball.x = ball.x+ballpixel;
   }
+  if(ball.x <=0){
+     ball.x=0;
+  }
+  if(ball.x>=canvas.width-ballpixel){
+     ball.x = canvas.width-ballpixel;
+  }
+  if(ball.y <=0){
+     ball.y=0;
+  }
+  if(ball.y>=canvas.height-ballpixel){
+     ball.y = canvas.height-ballpixel;
+  }
+  for (var i = 0; i < canvas.height-ballpixel+1; i=i+(ballpixel*2)){ 
+     for (var j = 0; j < canvas.width-ballpixel+1; j=j+(ballpixel*2)){
+        if(ball.x==j && ball.y==i){
+           if((starty-cury > 0)&&(Math.abs(starty-cury)>Math.abs(startx-curx))){ // up
+              ball.x = ball.x;
+              ball.y = ball.y+ballpixel;
+           }
+           if((starty-cury < 0)&&(Math.abs(starty-cury)>Math.abs(startx-curx))){ //down
+              ball.x = ball.x;
+              ball.y = ball.y-ballpixel;
+           }
+           if((startx-curx > 0)&&(Math.abs(starty-cury)<Math.abs(startx-curx))){ //left
+              ball.x = ball.x+ballpixel;
+              ball.y = ball.y;
+           }
+           if((startx-curx < 0)&&(Math.abs(starty-cury)<Math.abs(startx-curx))){ //right
+              ball.x = ball.x-ballpixel;
+              ball.y = ball.y;
+           }
+        }
+     }
+  }
+  for(var i=0; i<keyx.length; i++){
+    if(ball.x == keyx[i]&& ball.y==keyy[i]){
+      drawKey(keyx, keyy);
+      score=score+10;
+    }
+  }
+  render();
   e.preventDefault();
   touch = null;
   startx =0;
