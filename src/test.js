@@ -3,7 +3,7 @@ var gtx = ganvas.getContext('2d');
 var baImage = new Image();
 baImage.src = "back.png";
 baImage.onload = function(){
-	  if(score>=0&&score<300){
+    if(score>=0&&score<300){
       baImage.src = "back1.png";
     }else if(score>=300&&score<600){
       baImage.src = "back2.png";
@@ -14,32 +14,65 @@ baImage.onload = function(){
     }else{
       baImage.src = "back5.png";
     }
-	  gtx.drawImage(baImage,0,0,ganvas.width,ganvas.height);
-
-	  gtx.strokeStyle = 'white';
-    gtx.font = '30px Bombardment';
-    gtx.fillText("LIVE ", 10, ganvas.height-50);
-    gtx.fillStyle = 'white';
-    gtx.font = '30px Bombardment';
-    gtx.fillText(lives, 40, ganvas.height-50);
+    gtx.drawImage(baImage,0,0,ganvas.width,ganvas.height);
 
     gtx.strokeStyle = 'white';
     gtx.font = '30px Bombardment';
-    gtx.fillText("SCORE ", 60, ganvas.height-50);
+    gtx.fillText("LIVE ", 10, ganvas.height-20);
     gtx.fillStyle = 'white';
     gtx.font = '30px Bombardment';
-    gtx.fillText(score, 120, ganvas.height-50);//fixed
+    gtx.fillText(lives, 80, ganvas.height-20);
+
+    gtx.strokeStyle = 'white';
+    gtx.font = '30px Bombardment';
+    gtx.fillText("SCORE ", ganvas.width/2, ganvas.height-20);
+    gtx.fillStyle = 'white';
+    gtx.font = '30px Bombardment';
+    gtx.fillText(score, (ganvas.width/2)+100, ganvas.height-20);//fixed
 }
 
 ////////////////////////////////////////////////////////////////////////
 var canvas = document.getElementById("myCanvas");
 var ctx = canvas.getContext('2d');
 ////////////////////////////////////////////////////////////////////////
-ganvas.width = window.innerWidth;
-ganvas.height = window.innerHeight;
-canvas.width = window.innerWidth;
-canvas.height = window.innerWidth*(11/7);
+ganvas.width = window.innerWidth-10;
+ganvas.height = window.innerHeight-10;
+canvas.width = window.innerWidth-10;
+canvas.height = (window.innerWidth-10)*(11/7);
+var ballpixel=canvas.width/7; // 볼(벽) 크기
+
+function drawCanvas(){
+  var gwidth, gheight, cwidth, cheight;
+  if(canvas.height>ganvas.height){
+    gwidth = ganvas.width;
+    gheight = ganvas.height;
+    cheight = gheight*(7/11);
+    ballpixel=cheight/11;
+    cwidth = ballpixel*7;
+
+    ganvas.width = gwidth;
+    ganvas.height = gheight;
+    canvas.width = cwidth;
+    canvas.height = cheight;
+  }else{
+    gwidth = ganvas.width;
+    gheight = ganvas.height;
+    cwidth = canvas.width;
+    cheight = canvas.height;
+    ballpixel=canvas.width/7;
+
+    ganvas.width = gwidth;
+    ganvas.height = gheight;
+    canvas.width = cwidth;
+    canvas.height = cheight;
+  }
+  return ganvas.width, ganvas.height, canvas.width, canvas.height, ballpixel;
+}
+drawCanvas();
 ////////////////////////////////////////////////////////////////////////
+var margin_left = (ganvas.width - canvas.width)/2;
+$('#myCanvas').css("margin-left", margin_left);
+
 var tout; // setTimeout(detectCollision) 담는 변수
 var max; // 실행해서 나왔던 게임점수 중 가장 고득점 뽑는 변수
 var score = 0;
@@ -48,10 +81,10 @@ var maxScore = [];
 var cnt = 15; // 키 갯수
 var point=0; // 점수 
 var speed = 5; // 레이저 속도
-var ballpixel=canvas.width/7; // 볼(벽) 크기
 var px=5; //캐릭터 최초 시작 x축 지점
 var py=10; //캐릭터 최초 시작 y축 지점
 ////////////////////////////////////////////////////////////////////////
+
 var backImage = new Image(); // 배경화면
  backImage.src = "back.png";
  backImage.onload = function(){
@@ -65,9 +98,9 @@ var backImage = new Image(); // 배경화면
  ballImage.src = "ryan.png";
  ballImage.onload = function(){
    if(lives==2){
-   	   ctx.drawImage(ballImage, ball.x, ball.y, ballpixel, ballpixel);
+       ctx.drawImage(ballImage, ball.x, ball.y, ballpixel, ballpixel);
    }else{
-   	   ctx.drawImage(bombImage, ball.x, ball.y, ballpixel, ballpixel);
+       ctx.drawImage(bombImage, ball.x, ball.y, ballpixel, ballpixel);
    }
 
  };
@@ -106,11 +139,11 @@ function drawKey(a,b){
   }
   if(cnt==0){
     keyx.push(ballpixel,ballpixel,ballpixel,ballpixel,ballpixel,
-			  (ballpixel*3),(ballpixel*3),(ballpixel*3),(ballpixel*3),(ballpixel*3),
-			  (ballpixel*5),(ballpixel*5),(ballpixel*5),(ballpixel*5),(ballpixel*5));
+        (ballpixel*3),(ballpixel*3),(ballpixel*3),(ballpixel*3),(ballpixel*3),
+        (ballpixel*5),(ballpixel*5),(ballpixel*5),(ballpixel*5),(ballpixel*5));
     keyy.push(ballpixel,(ballpixel*3),(ballpixel*5),(ballpixel*7),(ballpixel*9),
-			  ballpixel,(ballpixel*3),(ballpixel*5),(ballpixel*7),(ballpixel*9),
-			  ballpixel,(ballpixel*3),(ballpixel*5),(ballpixel*7),(ballpixel*9));
+        ballpixel,(ballpixel*3),(ballpixel*5),(ballpixel*7),(ballpixel*9),
+        ballpixel,(ballpixel*3),(ballpixel*5),(ballpixel*7),(ballpixel*9));
     cnt=15;
   }
   if(point>=150){//fixed
@@ -153,7 +186,7 @@ var laserB = {}; //가로 레이저 관련 코드
 laserB.x = -(ballpixel);
 laserB.y = -(ballpixel);
 function movelaserB(){
-	var aY = [ballpixel,(ballpixel*3),(ballpixel*5),(ballpixel*7),(ballpixel*9)];
+  var aY = [ballpixel,(ballpixel*3),(ballpixel*5),(ballpixel*7),(ballpixel*9)];
     var ry = ran(0,aY.length);
  
     ctx.drawImage(laserBImage, laserB.x += speed, laserB.y, (ballpixel*2), ballpixel);
@@ -172,7 +205,7 @@ function movelaserB(){
 var laserBImage = new Image();
 laserBImage.src = "laserR.png";
 laserBImage.onload = function(){
-	laserBReady = true;
+  laserBReady = true;
 };
 ////////////////////////////////////////////////////////////////////////
 var collision = {};
@@ -199,37 +232,37 @@ function detectCollision(){
     (ball.y>a1&&ball.y<=a3-(ballpixel/6)&&ball.x==laserA.x)){
     bool_collision = true;
     if(lives <= 0){
-    	lives = 0;
-    	gameOver();
+      lives = 0;
+      gameOver();
     } else {
-    	lives--;
-  	}
+      lives--;
+    }
   }
   return lives;
   
 }
 ////////////////////////////////////////////////////////////////////////
 function gameOver(){
-	isGameOver = true;
-	bool_bomb = false;
-	keyx = [];
-	keyy = [];
-	cnt = 15;
-	point = 0;//fixed
-	maxScore.push(score);
-	var max = Math.max.apply(null, maxScore);
-	$("#maxScore").text("MAX SCORE: "+max);
-	clearTimeout(tout);
-	$("#gameover").css("display","block");
+  isGameOver = true;
+  bool_bomb = false;
+  keyx = [];
+  keyy = [];
+  cnt = 15;
+  point = 0;//fixed
+  maxScore.push(score);
+  var max = Math.max.apply(null, maxScore);
+  $("#maxScore").text("MAX SCORE: "+max);
+  clearTimeout(tout);
+  $("#gameover").css("display","block");
 }
 ////////////////////////////////////////////////////////////////////////
 function restart(){
-	isGameOver = false;
-	bool_bomb = true;
-	lives=2;
-	score=0;
-	restartOpt();
-	$("#gameover").css("display","none");
+  isGameOver = false;
+  bool_bomb = true;
+  lives=2;
+  score=0;
+  restartOpt();
+  $("#gameover").css("display","none");
 }
 function restartOpt(){
   speed = 5;
@@ -246,11 +279,11 @@ function restartOpt(){
   ballpixel,(ballpixel*3),(ballpixel*5),(ballpixel*7),(ballpixel*9),
   ballpixel,(ballpixel*3),(ballpixel*5),(ballpixel*7),(ballpixel*9)];
   for(var i=0; i<keyx.length; i++){
-	  ctx.drawImage(keyImage, keyx[i]+(ballpixel/4), keyy[i]+(ballpixel/4), (ballpixel/2), (ballpixel/2));
-  }	
+    ctx.drawImage(keyImage, keyx[i]+(ballpixel/4), keyy[i]+(ballpixel/4), (ballpixel/2), (ballpixel/2));
+  } 
 }
 $("#restart").click(function(){
-	restart();
+  restart();
 });
 /////////////////////////////////////////////////////////////////////////
 var isGameOver = false;
@@ -286,67 +319,67 @@ var lastup = 0;
 var acDelta =0;
 var msFrame = 1000;
 var render = function(){
- 	var delta = Date.now() - lastup;
- 	if(acDelta > msFrame){
- 		acDelta = 0;
-	 	if(baReady){
-		  if(score>=0&&score<300){
-		  	baImage.src = "back1.png";
-		  }else if(score>=300&&score<600){
-		  	baImage.src = "back2.png";
-		  }else if(score>=600&&score<900){
-		  	baImage.src = "back3.png";
-		  }else if(score>=900&&score<1200){
+  var delta = Date.now() - lastup;
+  if(acDelta > msFrame){
+    acDelta = 0;
+    if(baReady){
+      if(score>=0&&score<300){
+        baImage.src = "back1.png";
+      }else if(score>=300&&score<600){
+        baImage.src = "back2.png";
+      }else if(score>=600&&score<900){
+        baImage.src = "back3.png";
+      }else if(score>=900&&score<1200){
         baImage.src = "back4.png";
       }else{
         baImage.src = "back5.png";
       }
-		  gtx.drawImage(baImage,0,0,ganvas.width,ganvas.height);
-
-		  gtx.strokeStyle = 'white';
+      gtx.drawImage(baImage,0,0,ganvas.width,ganvas.height);
+    
+      gtx.strokeStyle = 'white';
       gtx.font = '30px Bombardment';
-      gtx.fillText("LIVE ", 10, ganvas.height-50);
+      gtx.fillText("LIVE ", 10, ganvas.height-20);
       gtx.fillStyle = 'white';
       gtx.font = '30px Bombardment';
-      gtx.fillText(lives, 40, ganvas.height-50);
+      gtx.fillText(lives, 80, ganvas.height-20);
 
       gtx.strokeStyle = 'white';
       gtx.font = '30px Bombardment';
-      gtx.fillText("SCORE ", 60, ganvas.height-50);
+      gtx.fillText("SCORE ", ganvas.width/2, ganvas.height-20);
       gtx.fillStyle = 'white';
       gtx.font = '30px Bombardment';
-      gtx.fillText(score, 120, ganvas.height-50);//fixed
-		}
-	   	if(backReady){
-	         ctx.drawImage(backImage, 0, 0);
-	    }
-	    if(wallReady){
-	        for (var y = 0; y < canvas.height-ballpixel+1; y=y+(ballpixel*2)) { 
-	            for (var x = 0; x < canvas.width-ballpixel+1; x=x+(ballpixel*2)) { 
-	                ctx.drawImage(wall, x, y, ballpixel, ballpixel); 
-	            }
-	        } 
-	    }
-	    if(ballReady){
-			if(lives==2){
-		   	   ctx.drawImage(ballImage, ball.x, ball.y, ballpixel, ballpixel);
-		   }else{
-		   	   ctx.drawImage(bombImage, ball.x, ball.y, ballpixel, ballpixel);
-		   }
-	    }
-	    if(keyReady){
-	      for(var i=0; i<keyx.length; i++){
-	        ctx.drawImage(keyImage, keyx[i]+(ballpixel/4), keyy[i]+(ballpixel/4), (ballpixel/2), (ballpixel/2));
-	      }
-	    }
-	    if(laserAReady){
-	    	movelaserA();
-	    }
-	    if(laserBReady){
-	    	movelaserB();
-	    }
+      gtx.fillText(score, (ganvas.width/2)+100, ganvas.height-20);//fixed
+    }
+      if(backReady){
+           ctx.drawImage(backImage, 0, 0);
+      }
+      if(wallReady){
+          for (var y = 0; y < canvas.height-ballpixel+1; y=y+(ballpixel*2)) { 
+              for (var x = 0; x < canvas.width-ballpixel+1; x=x+(ballpixel*2)) { 
+                  ctx.drawImage(wall, x, y, ballpixel, ballpixel); 
+              }
+          } 
+      }
+      if(ballReady){
+      if(lives==2){
+           ctx.drawImage(ballImage, ball.x, ball.y, ballpixel, ballpixel);
+       }else{
+           ctx.drawImage(bombImage, ball.x, ball.y, ballpixel, ballpixel);
+       }
+      }
+      if(keyReady){
+        for(var i=0; i<keyx.length; i++){
+          ctx.drawImage(keyImage, keyx[i]+(ballpixel/4), keyy[i]+(ballpixel/4), (ballpixel/2), (ballpixel/2));
+        }
+      }
+      if(laserAReady){
+        movelaserA();
+      }
+      if(laserBReady){
+        movelaserB();
+      }
     }else{
-    	acDelta += delta;
+      acDelta += delta;
     }
 };
 ////////////////////////////////////////////////////////////////////////
@@ -417,29 +450,17 @@ addEventListener("keydown", function(e){
     }
   }
   render();
-  console.log("Cwidth:", canvas.width);
-  console.log("Gwidth:", ganvas.width);
-  console.log("Cheight:", canvas.height);
-  console.log("Gheight:", ganvas.height);
-  console.log("windowwidth:", window.innerWidth);
-  console.log("windowHeight:", window.innerHeight);
 },false);
 ////////////////////////////////////////////////////////////////////////
 //게임 실행할 main 함수//
 var main = function(){
-  console.log("Cwidth:", canvas.width);
-  console.log("Gwidth:", ganvas.width);
-  console.log("Cheight:", canvas.height);
-  console.log("Gheight:", ganvas.height);
-  console.log("windowwidth:", window.innerWidth);
-  console.log("windowHeight:", window.innerHeight);
   if(!isGameOver){
-  	render();
+    render();
   }
   if(lives<2){
-  	tout = setTimeout("detectCollision()", 2000);
+    tout = setTimeout("detectCollision()", 2000);
   }else{
-  	detectCollision();
+    detectCollision();
   }
   requestAnimationFrame(main);
 };
