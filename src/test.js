@@ -43,17 +43,21 @@ var ballpixel=canvas.width/7; // 볼(벽) 크기
 
 function drawCanvas(){
   var gwidth, gheight, cwidth, cheight;
-  if(canvas.height>=ganvas.height){
+  if(canvas.height>ganvas.height){
     gwidth = ganvas.width;
     gheight = ganvas.height;
-    cheight = gheight*(7/11);
-    ballpixel=cheight/11;
-    cwidth = ballpixel*7;
+    cwidth = (canvas.width)*0.8;
+    cheight = (canvas.height)*0.8;
 
     ganvas.width = gwidth;
     ganvas.height = gheight;
     canvas.width = cwidth;
     canvas.height = cheight;
+
+    if(canvas.height>ganvas.height){
+      drawCanvas();
+    }
+    ballpixel=canvas.width/7;
   }else{
     gwidth = ganvas.width;
     gheight = ganvas.height;
@@ -68,6 +72,7 @@ function drawCanvas(){
   }
   return ganvas.width, ganvas.height, canvas.width, canvas.height, ballpixel;
 }
+
 drawCanvas();
 ////////////////////////////////////////////////////////////////////////
 var margin_left = (ganvas.width - canvas.width)/2;
