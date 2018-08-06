@@ -388,20 +388,21 @@ var render = function(){
 };
 ////////////////////////////////////////////////////////////////////////
 //키보드 이벤트//
-
 var startx, starty;
 var curx, cury;
-var touchobj = null;
-addEventListener("touchstart", function(e){
-  touchobj = e.changeTouches[0];
-  startx = parseInt(touchobj.clientX);
-  starty = parseInt(touchobj.clientY);
+var touch = null;
+addEventListener('touchstart', function(event) {
+  var touch = event.touches[0];
+  startx = parseInt(touch.clientX);
+  starty = parseInt(touch.clientY);
+  return startx, starty;
   e.preventDefault();
 }, false);
-addEventListener("touchmove", function(e){
-  touchobj = e.changeTouches[0];
-  curx = parseInt(touchobj.clientX);
-  cury = parseInt(touchobj.clientY);
+
+addEventListener('touchmove', function(event) {
+  var touch = event.touches[0];
+  curx = parseInt(touch.clientX);
+  cury = parseInt(touch.clientY);
 
   if((starty-cury > 0)&&(Math.abs(starty-cury)>Math.abs(startx-curx))){
     ball.y = ball.y-ballpixel;
@@ -415,8 +416,12 @@ addEventListener("touchmove", function(e){
   if((startx-curx > 0)&&(Math.abs(starty-cury)<Math.abs(startx-curx))){
     ball.x = ball.x+ballpixel;
   }
-
   e.preventDefault();
+  startx =0;
+  starty = 0;
+  curx = 0;
+  cury = 0;
+  return startx, starty, curx, cury;
 }, false);
 
 addEventListener("keydown", function(e){
