@@ -21,7 +21,7 @@
       }
   </script>
   <style>
-     html,
+    html,
     body {
         width: 100%;
         height: 100%;
@@ -38,16 +38,15 @@
         width: 100%;
         height: 100%;
     }
-    #myBack { position: absolute; margin: 0% 0%;}
-    #myCanvas {position: absolute; margin: 0% 0%;}
+    #myBack { position: absolute;}
+    #myCanvas {position: absolute;}
     .border-styles > #myBack{
       border-width: 2px;
       border-color: blue;
     }
     .gameover {
       position: absolute;
-      top: 100px;
-      left: 20px;
+      text-align: center;
       color: red;
       font-family: Bombardment, sans-serif;
       font-size: 50px;
@@ -55,12 +54,13 @@
       display: none;
     }
     .gameover span{
+      text-align: center;
       font-size: 30px;
       cursor: pointer;
       position: relative;
-      left: 20px;
     }
     .gameover span:hover {
+      text-align: center;
       color: orange;
     }
   </style>
@@ -69,8 +69,8 @@
   <canvas id="myBack" style="border-style:solid"></canvas>
   <canvas id="myCanvas" style="border-style:groove"></canvas>
   <div class="gameover" id="gameover">GAME OVER
-    <p><span id="restart" style="font-size: 30px; color: orange; left: 50px; border-style:groove">RESTART</span></p>
-    <p><span id="maxScore" style="font-size: 30px; color: yellow; left: 50px">0</span></p>
+    <p><span id="restart" style="font-size: 30px; color: orange; border-style:groove">RESTART</span></p>
+    <p><span id="maxScore" style="font-size: 30px; color: yellow">0</span></p>
   </div>
   <script src="test.js"></script>
   </body>
