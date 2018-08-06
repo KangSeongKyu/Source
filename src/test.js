@@ -396,16 +396,23 @@ addEventListener('touchstart', function(event) {
   touch = event.touches[0];
   startx = parseInt(touch.clientX);
   starty = parseInt(touch.clientY);
-  return startx, starty;
+  
   e.preventDefault();
   touch = null;
+  return startx, starty, touch;
+}, false);
+
+addEventListener('touchmove', function(event) {
+  touch = event.touches[0];
+  curx = parseInt(touch.pageX);
+  cury = parseInt(touch.pageY);
+  touch = null;
+  return curx, cury, touch;
+  e.preventDefault();
+  
 }, false);
 
 addEventListener('touchend', function(event) {
-  touch = event.touches[0];
-  curx = parseInt(touch.clientX);
-  cury = parseInt(touch.clientY);
-
   if((starty-cury > 0)&&(Math.abs(starty-cury)>Math.abs(startx-curx))){
     ball.y = ball.y-ballpixel;
   }
@@ -419,11 +426,11 @@ addEventListener('touchend', function(event) {
     ball.x = ball.x+ballpixel;
   }
   e.preventDefault();
+  touch = null;
   startx =0;
   starty = 0;
   curx = 0;
   cury = 0;
-  touch =null;
   return startx, starty, curx, cury, touch;
 }, false);
 
