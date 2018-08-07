@@ -42,9 +42,15 @@ canvas.width = ganvas.width;
 canvas.height = (canvas.width)*(11/7);
 var ballpixel=canvas.width/7; // 볼(벽) 크기
 
+ganvas.width = window.innerWidth-10;
+ganvas.height = window.innerHeight-10;
+canvas.width = ganvas.width;
+canvas.height = (canvas.width)*(11/7);
+var ballpixel=canvas.width/7; // 볼(벽) 크기
+
 function drawCanvas(){
   var gwidth, gheight, cwidth, cheight;
-  if(canvas.height>ganvas.height){
+  if(canvas.height>=ganvas.height){
     gwidth = ganvas.width;
     gheight = ganvas.height;
     cwidth = (canvas.width)*0.85;
@@ -59,7 +65,7 @@ function drawCanvas(){
       drawCanvas();
     }
     ballpixel=canvas.width/7;
-  }else{
+  }else if(canvas.height<ganvas.height){
     gwidth = ganvas.width;
     gheight = ganvas.height;
     cwidth = canvas.width;
@@ -70,20 +76,21 @@ function drawCanvas(){
     ganvas.height = gheight;
     canvas.width = cwidth;
     canvas.height = cheight;
-    if(1.77<=(canvas.height/canvas.width)&&
-          (canvas.height/canvas.width)<2.0){
-            gwidth = ganvas.width;
-            gheight = ganvas.height;
-            cwidth = (canvas.width)*0.85;
-            cheight = (canvas.height)*0.85;
+    ballpixel=canvas.width/7;
+  }else if(canvas.height<ganvas.height&&(16/9)<=(canvas.height/canvas.width)&&
+          (canvas.height/canvas.width)<(18/9)){
+    gwidth = ganvas.width;
+    gheight = ganvas.height;
+    cwidth = (canvas.width)*0.85;
+    cheight = (canvas.height)*0.85;
 
-            ganvas.width = gwidth;
-            ganvas.height = gheight;
-            canvas.width = cwidth;
-            canvas.height = cheight;
-          }
-     ballpixel=canvas.width/7;
+    ganvas.width = gwidth;
+    ganvas.height = gheight;
+    canvas.width = cwidth;
+    canvas.height = cheight;
+    ballpixel = canvas.width/7;
   }
+  
   return ganvas.width, ganvas.height, canvas.width, canvas.height, ballpixel;
 }
 drawCanvas();
