@@ -104,7 +104,7 @@ var py=10; //캐릭터 최초 시작 y축 지점
 var backImage = new Image(); // 배경화면
  backImage.src = "back.png";
  backImage.onload = function(){
-    ctx.drawImage(backImage, 0, 0);
+    //ctx.drawImage(backImage, 0, 0);
  };
 ////////////////////////////////////////////////////////////////////////
  var ball = {}; // 캐릭터
@@ -367,7 +367,7 @@ var render = function(){
       gtx.fillText(score, (ganvas.width/2)+100, ganvas.height-20);//fixed
     }
       if(backReady){
-           ctx.drawImage(backImage, 0, 0);
+           //ctx.drawImage(backImage, 0, 0);
       }
       if(wallReady){
           for (var y = 0; y < canvas.height-ballpixel+1; y=y+(ballpixel*2)) { 
