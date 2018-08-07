@@ -14,7 +14,7 @@ baImage.onload = function(){
     }else{
       baImage.src = "back5.png";
     }
-    gtx.drawImage(baImage,0,0,ganvas.width, ganvas.height);
+    gtx.drawImage(baImage,0,0);
 
     gtx.strokeStyle = 'white';
     gtx.font = '30px Bombardment';
@@ -352,7 +352,7 @@ var render = function(){
       }else{
         baImage.src = "back5.png";
       }
-      gtx.drawImage(baImage,0,0,ganvas.width, ganvas.height);
+      gtx.drawImage(baImage,0,0);
     
       gtx.strokeStyle = 'white';
       gtx.font = '30px Bombardment';
