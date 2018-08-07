@@ -37,9 +37,8 @@ var ctx = canvas.getContext('2d');
 ////////////////////////////////////////////////////////////////////////
 ganvas.width = window.innerWidth-10;
 ganvas.height = window.innerHeight-10;
-canvas.width = ganvas.width;
+canvas.width = window.innerWidth-10;
 canvas.height = (canvas.width)*(11/7);
-var ballpixel=canvas.width/7; // 볼(벽) 크기
 
 function drawCanvas(){
   var gwidth, gheight, cwidth, cheight;
@@ -57,23 +56,20 @@ function drawCanvas(){
     if(canvas.height>=ganvas.height&&Math.abs(canvas.height-ganvas.height)<(canvas.height/11)){
       drawCanvas();
     }
-    ballpixel=canvas.width/7;
   }else if(canvas.height<ganvas.height){
     gwidth = ganvas.width;
     gheight = ganvas.height;
     cwidth = canvas.width;
     cheight = canvas.height;
     
-
     ganvas.width = gwidth;
     ganvas.height = gheight;
     canvas.width = cwidth;
     canvas.height = cheight;
-    ballpixel=canvas.width/7;
   }else if(canvas.height<ganvas.height&&(16/9)<=(canvas.height/canvas.width)&&
-          (canvas.height/canvas.width)<(18/9)){
-    gwidth = ganvas.width;
-    gheight = ganvas.height;
+          (canvas.height/canvas.width)<(17/9)){
+    gwidth = canvas.width;
+    gheight = canvas.height;
     cwidth = parseInt((canvas.width)*0.9);
     cheight = parseInt((canvas.height)*0.9);
 
@@ -81,7 +77,6 @@ function drawCanvas(){
     ganvas.height = gheight;
     canvas.width = cwidth;
     canvas.height = cheight;
-    ballpixel = cwidth/7;
   }
 
   return ganvas.width, ganvas.height, canvas.width, canvas.height, ballpixel;
@@ -101,6 +96,7 @@ var point=0; // 점수
 var speed = 5; // 레이저 속도
 var px=5; //캐릭터 최초 시작 x축 지점
 var py=10; //캐릭터 최초 시작 y축 지점
+var ballpixel = (canvas.width)/7;
 ////////////////////////////////////////////////////////////////////////
 
 var backImage = new Image(); // 배경화면
