@@ -476,6 +476,7 @@ addEventListener('touchend', function(event) {
       score=score+10;
     }
   }
+  drawCanvas();
   render();
   e.preventDefault();
   touch = null;
@@ -539,13 +540,13 @@ addEventListener("keydown", function(e){
       score=score+10;
     }
   }
+  drawCanvas();
   render();
 },false);
 ////////////////////////////////////////////////////////////////////////
 //게임 실행할 main 함수//
 var main = function(){
   if(!isGameOver){
-    drawCanvas();
     render();
   }
   if(lives<2){
