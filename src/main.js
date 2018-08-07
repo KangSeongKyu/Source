@@ -256,9 +256,8 @@ function restartOpt(){
 $("#restart").click(function(){
   restart();
 });
-
+var gwidth, gheight, cwidth, cheight, margin_left;
 function drawCanvas(){
-  var gwidth, gheight, cwidth, cheight, margin_left;
   if(canvas.height>=ganvas.height){
     gwidth = ganvas.width;
     gheight = ganvas.height;
@@ -297,9 +296,8 @@ function drawCanvas(){
     $('#myCanvas').css("height", cheight);
     $('#myCanvas').css("margin-left", margin_left);
   }
-  return ballpixel;
+  return gwidth, gheight, cwidth, cheight, margin_left;
 }
-drawCanvas();
 /////////////////////////////////////////////////////////////////////////
 var isGameOver = false;
 var bool_collision = false;
@@ -337,6 +335,7 @@ var render = function(){
   var delta = Date.now() - lastup;
   if(acDelta > msFrame){
     acDelta = 0;
+    drawCanvas();
     if(baReady){
       if(score>=0&&score<300){
         baImage.src = "back1.png";
@@ -476,7 +475,6 @@ addEventListener('touchend', function(event) {
       score=score+10;
     }
   }
-  drawCanvas();
   render();
   e.preventDefault();
   touch = null;
@@ -540,7 +538,6 @@ addEventListener("keydown", function(e){
       score=score+10;
     }
   }
-  drawCanvas();
   render();
 },false);
 ////////////////////////////////////////////////////////////////////////
