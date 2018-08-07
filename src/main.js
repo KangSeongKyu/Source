@@ -34,6 +34,11 @@ baImage.onload = function(){
 ////////////////////////////////////////////////////////////////////////
 var canvas = document.getElementById("myCanvas");
 var ctx = canvas.getContext('2d');
+var backImage = new Image(); // 배경화면
+ backImage.src = "back.png";
+ backImage.onload = function(){
+    ctx.drawImage(backImage, 0, 0, canvas.width, canvas.height);
+ };
 ////////////////////////////////////////////////////////////////////////
 ganvas.width = window.innerWidth-10;
 ganvas.height = window.innerHeight-10;
@@ -96,11 +101,6 @@ var py=10; //캐릭터 최초 시작 y축 지점
 var ballpixel = (canvas.width)/7;
 ////////////////////////////////////////////////////////////////////////
 
-var backImage = new Image(); // 배경화면
- backImage.src = "back.png";
- backImage.onload = function(){
-    ctx.drawImage(backImage, 0, 0, canvas.width, canvas.height);
- };
 ////////////////////////////////////////////////////////////////////////
  var ball = {}; // 캐릭터
  ball.x = ballpixel*px;     
