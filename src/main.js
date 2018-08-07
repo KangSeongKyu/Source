@@ -59,28 +59,30 @@ function drawCanvas(){
       drawCanvas();
     }
     ballpixel=canvas.width/7;
-  }else if(1.77<=(window.innerHeight-10/window.innerWidth-10)&&
-          (window.innerHeight-10/window.innerWidth-10)<2.0){
-    gwidth = window.innerWidth-10;
-    gheight = window.innerHeight-10;
-    cwidth = (canvas.width)*0.85;
-    cheight = (canvas.height)*0.85;
+  }else{
+    gwidth = ganvas.width;
+    gheight = ganvas.height;
+    cwidth = canvas.width;
+    cheight = canvas.height;
+    
 
     ganvas.width = gwidth;
     ganvas.height = gheight;
     canvas.width = cwidth;
     canvas.height = cheight;
-  }else{
-      gwidth = window.innerWidth-10;
-      gheight = window.innerHeight-10;
-      cwidth = window.innerWidth-10;
-      cheight = (window.innerWidth-10)*(11/7);
-      ballpixel=canvas.width/7;
+    if(1.77<=(canvas.height/canvas.width)&&
+          (canvas.height/canvas.width)<2.0){
+            gwidth = ganvas.width;
+            gheight = ganvas.height;
+            cwidth = (canvas.width)*0.85;
+            cheight = (canvas.height)*0.85;
 
-      ganvas.width = gwidth;
-      ganvas.height = gheight;
-      canvas.width = cwidth;
-      canvas.height = cheight;
+            ganvas.width = gwidth;
+            ganvas.height = gheight;
+            canvas.width = cwidth;
+            canvas.height = cheight;
+          }
+     ballpixel=canvas.width/7;
   }
   return ganvas.width, ganvas.height, canvas.width, canvas.height, ballpixel;
 }
