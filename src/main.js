@@ -1,4 +1,3 @@
-
 var ganvas = document.getElementById("myBack");
 var gtx = ganvas.getContext('2d');
 var baImage = new Image();
@@ -15,7 +14,7 @@ baImage.onload = function(){
     }else{
       baImage.src = "back5.png";
     }
-    gtx.drawImage(baImage,0,0);
+    gtx.drawImage(baImage,0,0,ganvas.width, ganvas.height);
 
     gtx.strokeStyle = 'white';
     gtx.font = '30px Bombardment';
@@ -42,12 +41,6 @@ canvas.width = ganvas.width;
 canvas.height = (canvas.width)*(11/7);
 var ballpixel=canvas.width/7; // 볼(벽) 크기
 
-ganvas.width = window.innerWidth-10;
-ganvas.height = window.innerHeight-10;
-canvas.width = ganvas.width;
-canvas.height = (canvas.width)*(11/7);
-var ballpixel=canvas.width/7; // 볼(벽) 크기
-
 function drawCanvas(){
   var gwidth, gheight, cwidth, cheight;
   if(canvas.height>=ganvas.height){
@@ -55,7 +48,7 @@ function drawCanvas(){
     gheight = ganvas.height;
     cwidth = (canvas.width)*0.85;
     cheight = (canvas.height)*0.85;
-
+    
     ganvas.width = gwidth;
     ganvas.height = gheight;
     canvas.width = cwidth;
@@ -90,7 +83,7 @@ function drawCanvas(){
     canvas.height = cheight;
     ballpixel = canvas.width/7;
   }
-  
+
   return ganvas.width, ganvas.height, canvas.width, canvas.height, ballpixel;
 }
 drawCanvas();
@@ -359,7 +352,7 @@ var render = function(){
       }else{
         baImage.src = "back5.png";
       }
-      gtx.drawImage(baImage,0,0);
+      gtx.drawImage(baImage,0,0,ganvas.width, ganvas.height);
     
       gtx.strokeStyle = 'white';
       gtx.font = '30px Bombardment';
