@@ -38,7 +38,7 @@ var ctx = canvas.getContext('2d');
 ganvas.width = window.innerWidth-10;
 ganvas.height = window.innerHeight-10;
 canvas.width = window.innerWidth-10;
-canvas.height = (window.innerWidth-10)*(11/7);
+canvas.height = (canvas.width)*(11/7);
 
 function drawCanvas(){
   var gwidth, gheight, cwidth, cheight, margin_left;
@@ -99,7 +99,7 @@ var ballpixel = (canvas.width)/7;
 var backImage = new Image(); // 배경화면
  backImage.src = "back.png";
  backImage.onload = function(){
-    ctx.drawImage(backImage, 0, 0);
+    ctx.drawImage(backImage, 0, 0, canvas.width, canvas.height);
  };
 ////////////////////////////////////////////////////////////////////////
  var ball = {}; // 캐릭터
@@ -362,7 +362,7 @@ var render = function(){
       gtx.fillText(score, (ganvas.width/2)+100, ganvas.height-20);//fixed
     }
       if(backReady){
-           ctx.drawImage(backImage, 0, 0);
+           ctx.drawImage(backImage, 0, 0, canvas.width, canvas.height);
       }
       if(wallReady){
           for (var y = 0; y < canvas.height-ballpixel+1; y=y+(ballpixel*2)) { 
