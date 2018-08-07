@@ -47,11 +47,11 @@ function drawCanvas(){
     gheight = ganvas.height;
     cwidth = parseInt((canvas.width)*0.85);
     cheight = parseInt((canvas.height)*0.85);
-
-    ganvas.width = gwidth;
-    ganvas.height = gheight;
-    canvas.width = cwidth;
-    canvas.height = cheight;
+    
+    $('#myBack').css("width", gwidth);
+    $('#myBack').css("height", gheight);
+    $('#myCanvas').css("width", cwidth);
+    $('#myCanvas').css("height", cheight);
 
     if(canvas.height>=ganvas.height&&Math.abs(canvas.height-ganvas.height)<(canvas.height/11)){
       drawCanvas();
@@ -61,11 +61,11 @@ function drawCanvas(){
     gheight = ganvas.height;
     cwidth = canvas.width;
     cheight = canvas.height;
-    
-    ganvas.width = gwidth;
-    ganvas.height = gheight;
-    canvas.width = cwidth;
-    canvas.height = cheight;
+
+    $('#myBack').css("width", gwidth);
+    $('#myBack').css("height", gheight);
+    $('#myCanvas').css("width", cwidth);
+    $('#myCanvas').css("height", cheight);
   }else if(canvas.height<ganvas.height&&(16/9)<=(canvas.height/canvas.width)&&
           (canvas.height/canvas.width)<(17/9)){
     gwidth = canvas.width;
@@ -73,13 +73,11 @@ function drawCanvas(){
     cwidth = parseInt((canvas.width)*0.9);
     cheight = parseInt((canvas.height)*0.9);
 
-    ganvas.width = gwidth;
-    ganvas.height = gheight;
-    canvas.width = cwidth;
-    canvas.height = cheight;
+    $('#myBack').css("width", gwidth);
+    $('#myBack').css("height", gheight);
+    $('#myCanvas').css("width", cwidth);
+    $('#myCanvas').css("height", cheight);
   }
-
-  return ganvas.width, ganvas.height, canvas.width, canvas.height, ballpixel;
 }
 drawCanvas();
 ////////////////////////////////////////////////////////////////////////
