@@ -38,7 +38,7 @@ var ctx = canvas.getContext('2d');
 ganvas.width = window.innerWidth-10;
 ganvas.height = window.innerHeight-10;
 canvas.width = window.innerWidth-10;
-canvas.height = (canvas.width)*(11/7);
+canvas.height = (window.innerWidth-10)*(11/7);
 
 function drawCanvas(){
   var gwidth, gheight, cwidth, cheight, margin_left;
@@ -46,7 +46,7 @@ function drawCanvas(){
     gwidth = ganvas.width;
     gheight = ganvas.height;
     cwidth = (canvas.width)*0.85;
-    cheight = (canvas.height)*0.85;
+    cheight = (cwidth)*(11/7);
     margin_left = (gwidth-cwidth)/2;
     $('#myBack').css("width", gwidth);
     $('#myBack').css("height", gheight);
@@ -72,7 +72,7 @@ function drawCanvas(){
     gwidth = ganvas.width;
     gheight = ganvas.height;
     cwidth = (canvas.width)*0.9;
-    cheight = (canvas.height)*0.9;
+    cheight = (cwidth)*(11/7);
     margin_left = (gwidth-cwidth)/2;
     $('#myBack').css("width", gwidth);
     $('#myBack').css("height", gheight);
