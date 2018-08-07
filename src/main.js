@@ -58,14 +58,13 @@ function drawCanvas(){
       drawCanvas();
     }
     ballpixel=canvas.width/7;
-  }else if(canvas.height<ganvas.height&&
-          (16/9)<=(window.innerHeight/window.innerWidth)&&
-          (window.innerHeight/window.innerWidth)<(18/9)){
-    gwidth = ganvas.width;
-    gheight = ganvas.height;
+  }else if(1.77<=(window.innerHeight/window.innerWidth)&&
+          (window.innerHeight/window.innerWidth)<2.0){
+    gwidth = window.innerWidth-10;
+    gheight = window.innerHeight-10;
     cwidth = (canvas.width)*0.85;
     cheight = (canvas.height)*0.85;
-    ballpixel=canvas.width/7;
+
     ganvas.width = gwidth;
     ganvas.height = gheight;
     canvas.width = cwidth;
