@@ -14,7 +14,7 @@ baImage.onload = function(){
     }else{
       baImage.src = "back5.png";
     }
-    gtx.drawImage(baImage,0,0);
+    gtx.drawImage(baImage,0,0,ganvas.width, ganvas.height);
 
     gtx.strokeStyle = 'white';
     gtx.font = '30px Bombardment';
@@ -41,18 +41,18 @@ canvas.width = window.innerWidth-10;
 canvas.height = (canvas.width)*(11/7);
 
 function drawCanvas(){
-  var gwidth, gheight, cwidth, cheight;
+  var gwidth, gheight, cwidth, cheight, margin_left;
   if(canvas.height>=ganvas.height){
     gwidth = ganvas.width;
     gheight = ganvas.height;
     cwidth = parseInt((canvas.width)*0.85);
     cheight = parseInt((canvas.height)*0.85);
-    
+    margin_left = (ganvas.width-canvas.width)/2;
     $('#myBack').css("width", gwidth);
     $('#myBack').css("height", gheight);
     $('#myCanvas').css("width", cwidth);
     $('#myCanvas').css("height", cheight);
-
+    $('#myCanvas').css("margin-left", margin_left);
     if(canvas.height>=ganvas.height&&Math.abs(canvas.height-ganvas.height)<(canvas.height/11)){
       drawCanvas();
     }
@@ -61,29 +61,30 @@ function drawCanvas(){
     gheight = ganvas.height;
     cwidth = canvas.width;
     cheight = canvas.height;
-
+    margin_left = (ganvas.width-canvas.width)/2;
     $('#myBack').css("width", gwidth);
     $('#myBack').css("height", gheight);
     $('#myCanvas').css("width", cwidth);
     $('#myCanvas').css("height", cheight);
+    $('#myCanvas').css("margin-left", margin_left);
   }else if(canvas.height<ganvas.height&&(16/9)<=(canvas.height/canvas.width)&&
           (canvas.height/canvas.width)<(17/9)){
     gwidth = canvas.width;
     gheight = canvas.height;
     cwidth = parseInt((canvas.width)*0.9);
     cheight = parseInt((canvas.height)*0.9);
-
+    margin_left = (ganvas.width-canvas.width)/2;
     $('#myBack').css("width", gwidth);
     $('#myBack').css("height", gheight);
     $('#myCanvas').css("width", cwidth);
     $('#myCanvas').css("height", cheight);
+    $('#myCanvas').css("margin-left", margin_left);
   }
+
+  return ganvas.width, ganvas.height, canvas.width, canvas.height;
 }
 drawCanvas();
 ////////////////////////////////////////////////////////////////////////
-var margin_left = (ganvas.width - canvas.width)/2;
-$('#myCanvas').css("margin-left", margin_left);
-
 var tout; // setTimeout(detectCollision) 담는 변수
 var max; // 실행해서 나왔던 게임점수 중 가장 고득점 뽑는 변수
 var score = 0;
@@ -346,7 +347,7 @@ var render = function(){
       }else{
         baImage.src = "back5.png";
       }
-      gtx.drawImage(baImage,0,0);
+      gtx.drawImage(baImage,0,0,ganvas.width, ganvas.height);
     
       gtx.strokeStyle = 'white';
       gtx.font = '30px Bombardment';
