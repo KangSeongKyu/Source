@@ -45,48 +45,7 @@ ganvas.height = window.innerHeight-10;
 canvas.width = window.innerWidth-10;
 canvas.height = (window.innerWidth-10)*(11/7);
 
-function drawCanvas(){
-  var gwidth, gheight, cwidth, cheight, margin_left;
-  if(canvas.height>=ganvas.height){
-    gwidth = ganvas.width;
-    gheight = ganvas.height;
-    cwidth = (canvas.width)*0.85;
-    cheight = (cwidth)*(11/7);
-    margin_left = (gwidth-cwidth)/2;
-    $('#myBack').css("width", gwidth);
-    $('#myBack').css("height", gheight);
-    $('#myCanvas').css("width", cwidth);
-    $('#myCanvas').css("height", cheight);
-    $('#myCanvas').css("margin-left", margin_left);
-    if(canvas.height>=ganvas.height&&Math.abs(canvas.height-ganvas.height)<(canvas.height/11)){
-      drawCanvas();
-    }
-  }else if(canvas.height<ganvas.height){
-    gwidth = ganvas.width;
-    gheight = ganvas.height;
-    cwidth = canvas.width;
-    cheight = canvas.height;
-    margin_left = (gwidth-cwidth)/2;
-    $('#myBack').css("width", gwidth);
-    $('#myBack').css("height", gheight);
-    $('#myCanvas').css("width", cwidth);
-    $('#myCanvas').css("height", cheight);
-    $('#myCanvas').css("margin-left", margin_left);
-  }else if(canvas.height<ganvas.height&&(16/9)<=(ganvas.height/ganvas.width)&&
-          (ganvas.height/ganvas.width)<(18/9)){
-    gwidth = ganvas.width;
-    gheight = ganvas.height;
-    cwidth = (window.innerWidth-10)*0.9;
-    cheight = ((window.innerWidth-10)*(0.9))*(11/7);
-    margin_left = (gwidth-cwidth)/2;
-    $('#myBack').css("width", gwidth);
-    $('#myBack').css("height", gheight);
-    $('#myCanvas').css("width", cwidth);
-    $('#myCanvas').css("height", cheight);
-    $('#myCanvas').css("margin-left", margin_left);
-  }
-}
-drawCanvas();
+
 ////////////////////////////////////////////////////////////////////////
 var tout; // setTimeout(detectCollision) 담는 변수
 var max; // 실행해서 나왔던 게임점수 중 가장 고득점 뽑는 변수
@@ -100,6 +59,7 @@ var px=5; //캐릭터 최초 시작 x축 지점
 var py=10; //캐릭터 최초 시작 y축 지점
 var ballpixel = (canvas.width)/7;
 ////////////////////////////////////////////////////////////////////////
+
 
 ////////////////////////////////////////////////////////////////////////
  var ball = {}; // 캐릭터
@@ -296,6 +256,50 @@ function restartOpt(){
 $("#restart").click(function(){
   restart();
 });
+
+function drawCanvas(){
+  var gwidth, gheight, cwidth, cheight, margin_left;
+  if(canvas.height>=ganvas.height){
+    gwidth = ganvas.width;
+    gheight = ganvas.height;
+    cwidth = (canvas.width)*0.85;
+    cheight = (cwidth)*(11/7);
+    margin_left = (gwidth-cwidth)/2;
+    $('#myBack').css("width", gwidth);
+    $('#myBack').css("height", gheight);
+    $('#myCanvas').css("width", cwidth);
+    $('#myCanvas').css("height", cheight);
+    $('#myCanvas').css("margin-left", margin_left);
+    if(canvas.height>=ganvas.height&&Math.abs(canvas.height-ganvas.height)<(canvas.height/11)){
+      drawCanvas();
+    }
+  }else if(canvas.height<ganvas.height){
+    gwidth = ganvas.width;
+    gheight = ganvas.height;
+    cwidth = canvas.width;
+    cheight = canvas.height;
+    margin_left = (gwidth-cwidth)/2;
+    $('#myBack').css("width", gwidth);
+    $('#myBack').css("height", gheight);
+    $('#myCanvas').css("width", cwidth);
+    $('#myCanvas').css("height", cheight);
+    $('#myCanvas').css("margin-left", margin_left);
+  }else if(canvas.height<ganvas.height&&(16/9)<=(ganvas.height/ganvas.width)&&
+          (ganvas.height/ganvas.width)<(18/9)){
+    gwidth = ganvas.width;
+    gheight = ganvas.height;
+    cwidth = (window.innerWidth-10)*0.9;
+    cheight = ((window.innerWidth-10)*(0.9))*(11/7);
+    margin_left = (gwidth-cwidth)/2;
+    $('#myBack').css("width", gwidth);
+    $('#myBack').css("height", gheight);
+    $('#myCanvas').css("width", cwidth);
+    $('#myCanvas').css("height", cheight);
+    $('#myCanvas').css("margin-left", margin_left);
+  }
+  return ballpixel;
+}
+drawCanvas();
 /////////////////////////////////////////////////////////////////////////
 var isGameOver = false;
 var bool_collision = false;
@@ -541,6 +545,7 @@ addEventListener("keydown", function(e){
 //게임 실행할 main 함수//
 var main = function(){
   if(!isGameOver){
+    drawCanvas();
     render();
   }
   if(lives<2){
