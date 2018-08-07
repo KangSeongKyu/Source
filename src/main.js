@@ -45,7 +45,47 @@ ganvas.height = window.innerHeight-10;
 canvas.width = window.innerWidth-10;
 canvas.height = (window.innerWidth-10)*(11/7);
 
-
+var gwidth, gheight, cwidth, cheight, margin_left;
+drawCanvas.onload = function(){
+  if(canvas.height>=ganvas.height){
+    gwidth = ganvas.width;
+    gheight = ganvas.height;
+    cwidth = (canvas.width)*0.85;
+    cheight = (cwidth)*(11/7);
+    margin_left = (gwidth-cwidth)/2;
+    $('#myBack').css("width", gwidth);
+    $('#myBack').css("height", gheight);
+    $('#myCanvas').css("width", cwidth);
+    $('#myCanvas').css("height", cheight);
+    $('#myCanvas').css("margin-left", margin_left);
+    if(canvas.height>=ganvas.height&&Math.abs(canvas.height-ganvas.height)<(canvas.height/11)){
+      drawCanvas();
+    }
+  }else if(canvas.height<ganvas.height){
+    gwidth = ganvas.width;
+    gheight = ganvas.height;
+    cwidth = canvas.width;
+    cheight = canvas.height;
+    margin_left = (gwidth-cwidth)/2;
+    $('#myBack').css("width", gwidth);
+    $('#myBack').css("height", gheight);
+    $('#myCanvas').css("width", cwidth);
+    $('#myCanvas').css("height", cheight);
+    $('#myCanvas').css("margin-left", margin_left);
+  }else if(canvas.height<ganvas.height&&(16/9)<=(ganvas.height/ganvas.width)&&
+          (ganvas.height/ganvas.width)<(18/9)){
+    gwidth = ganvas.width;
+    gheight = ganvas.height;
+    cwidth = (window.innerWidth-10)*0.9;
+    cheight = ((window.innerWidth-10)*(0.9))*(11/7);
+    margin_left = (gwidth-cwidth)/2;
+    $('#myBack').css("width", gwidth);
+    $('#myBack').css("height", gheight);
+    $('#myCanvas').css("width", cwidth);
+    $('#myCanvas').css("height", cheight);
+    $('#myCanvas').css("margin-left", margin_left);
+  }
+}
 ////////////////////////////////////////////////////////////////////////
 var tout; // setTimeout(detectCollision) 담는 변수
 var max; // 실행해서 나왔던 게임점수 중 가장 고득점 뽑는 변수
@@ -256,48 +296,7 @@ function restartOpt(){
 $("#restart").click(function(){
   restart();
 });
-var gwidth, gheight, cwidth, cheight, margin_left;
-function drawCanvas(){
-  if(canvas.height>=ganvas.height){
-    gwidth = ganvas.width;
-    gheight = ganvas.height;
-    cwidth = (canvas.width)*0.85;
-    cheight = (cwidth)*(11/7);
-    margin_left = (gwidth-cwidth)/2;
-    $('#myBack').css("width", gwidth);
-    $('#myBack').css("height", gheight);
-    $('#myCanvas').css("width", cwidth);
-    $('#myCanvas').css("height", cheight);
-    $('#myCanvas').css("margin-left", margin_left);
-    if(canvas.height>=ganvas.height&&Math.abs(canvas.height-ganvas.height)<(canvas.height/11)){
-      drawCanvas();
-    }
-  }else if(canvas.height<ganvas.height){
-    gwidth = ganvas.width;
-    gheight = ganvas.height;
-    cwidth = canvas.width;
-    cheight = canvas.height;
-    margin_left = (gwidth-cwidth)/2;
-    $('#myBack').css("width", gwidth);
-    $('#myBack').css("height", gheight);
-    $('#myCanvas').css("width", cwidth);
-    $('#myCanvas').css("height", cheight);
-    $('#myCanvas').css("margin-left", margin_left);
-  }else if(canvas.height<ganvas.height&&(16/9)<=(ganvas.height/ganvas.width)&&
-          (ganvas.height/ganvas.width)<(18/9)){
-    gwidth = ganvas.width;
-    gheight = ganvas.height;
-    cwidth = (window.innerWidth-10)*0.9;
-    cheight = ((window.innerWidth-10)*(0.9))*(11/7);
-    margin_left = (gwidth-cwidth)/2;
-    $('#myBack').css("width", gwidth);
-    $('#myBack').css("height", gheight);
-    $('#myCanvas').css("width", cwidth);
-    $('#myCanvas').css("height", cheight);
-    $('#myCanvas').css("margin-left", margin_left);
-  }
-  return gwidth, gheight, cwidth, cheight, margin_left;
-}
+
 /////////////////////////////////////////////////////////////////////////
 var isGameOver = false;
 var bool_collision = false;
@@ -335,7 +334,6 @@ var render = function(){
   var delta = Date.now() - lastup;
   if(acDelta > msFrame){
     acDelta = 0;
-    drawCanvas();
     if(baReady){
       if(score>=0&&score<300){
         baImage.src = "back1.png";
