@@ -71,8 +71,8 @@ function drawCanvas(){
           (ganvas.height/ganvas.width)<(18/9)){
     gwidth = ganvas.width;
     gheight = ganvas.height;
-    cwidth = (canvas.width)*0.9;
-    cheight = (cwidth)*(11/7);
+    cwidth = (window.innerWidth-10)*0.9;
+    cheight = ((window.innerWidth-10)*(0.9))*(11/7);
     margin_left = (gwidth-cwidth)/2;
     $('#myBack').css("width", gwidth);
     $('#myBack').css("height", gheight);
