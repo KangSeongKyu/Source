@@ -38,7 +38,7 @@ var ctx = canvas.getContext('2d');
 ganvas.width = window.innerWidth-10;
 ganvas.height = window.innerHeight-10;
 canvas.width = window.innerWidth-10;
-canvas.height = (canvas.width)*(11/7);
+canvas.height = (window.innerWidth-10)*(11/7);
 
 function drawCanvas(){
   var gwidth, gheight, cwidth, cheight, margin_left;
