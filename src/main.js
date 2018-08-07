@@ -1,4 +1,3 @@
-
 var ganvas = document.getElementById("myBack");
 var gtx = ganvas.getContext('2d');
 var baImage = new Image();
@@ -59,19 +58,19 @@ function drawCanvas(){
       drawCanvas();
     }
     ballpixel=canvas.width/7;
+  }else if(canvas.height<ganvas.height&&
+          (16/9)<=(window.innerHeight/window.innerWidth)&&
+          (window.innerHeight/window.innerWidth)<(18/9)){
+    gwidth = ganvas.width;
+    gheight = ganvas.height;
+    cwidth = (canvas.width)*0.85;
+    cheight = (canvas.height)*0.85;
+    ballpixel=canvas.width/7;
+    ganvas.width = gwidth;
+    ganvas.height = gheight;
+    canvas.width = cwidth;
+    canvas.height = cheight;
   }else{
-    if((16/9)<=(window.innerHeight/window.innerWidth)&&
-      (window.innerHeight/window.innerWidth)<(18/9)){
-        gwidth = ganvas.width;
-        gheight = ganvas.height;
-        cwidth = (canvas.width)*0.85;
-        cheight = (canvas.height)*0.85;
-
-        ganvas.width = gwidth;
-        ganvas.height = gheight;
-        canvas.width = cwidth;
-        canvas.height = cheight;
-      }
       gwidth = ganvas.width;
       gheight = ganvas.height;
       cwidth = canvas.width;
