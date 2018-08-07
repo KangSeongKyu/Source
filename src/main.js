@@ -47,7 +47,7 @@ function drawCanvas(){
     gheight = ganvas.height;
     cwidth = (canvas.width)*0.85;
     cheight = (canvas.height)*0.85;
-    margin_left = (ganvas.width-canvas.width)/2;
+    margin_left = (gwidth-cwidth)/2;
     $('#myBack').css("width", gwidth);
     $('#myBack').css("height", gheight);
     $('#myCanvas').css("width", cwidth);
@@ -61,7 +61,7 @@ function drawCanvas(){
     gheight = ganvas.height;
     cwidth = canvas.width;
     cheight = canvas.height;
-    margin_left = (ganvas.width-canvas.width)/2;
+    margin_left = (gwidth-cwidth)/2;
     $('#myBack').css("width", gwidth);
     $('#myBack').css("height", gheight);
     $('#myCanvas').css("width", cwidth);
