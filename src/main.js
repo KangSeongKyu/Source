@@ -67,13 +67,13 @@ function drawCanvas(){
     $('#myCanvas').css("width", cwidth);
     $('#myCanvas').css("height", cheight);
     $('#myCanvas').css("margin-left", margin_left);
-  }else if(canvas.height<ganvas.height&&(16/9)<=(canvas.height/canvas.width)&&
-          (canvas.height/canvas.width)<(18/9)){
+  }else if(canvas.height<ganvas.height&&(16/9)<=(ganvas.height/ganvas.width)&&
+          (ganvas.height/ganvas.width)<(18/9)){
     gwidth = ganvas.width;
     gheight = ganvas.height;
     cwidth = parseInt((canvas.width)*0.9);
     cheight = parseInt((canvas.height)*0.9);
-    margin_left = (ganvas.width-canvas.width)/2;
+    margin_left = (gwidth-cwidth)/2;
     $('#myBack').css("width", gwidth);
     $('#myBack').css("height", gheight);
     $('#myCanvas').css("width", cwidth);
