@@ -1,7 +1,8 @@
+
 var ganvas = document.getElementById("myBack");
 var gtx = ganvas.getContext('2d');
 var baImage = new Image();
-baImage.src = "back.png";
+baImage.src = "back1.png";
 baImage.onload = function(){
     if(score>=0&&score<300){
       baImage.src = "back1.png";
@@ -37,7 +38,7 @@ var ctx = canvas.getContext('2d');
 ////////////////////////////////////////////////////////////////////////
 ganvas.width = window.innerWidth-10;
 ganvas.height = window.innerHeight-10;
-canvas.width = window.innerWidth-10;
+canvas.width = ganvas.width;
 canvas.height = (canvas.width)*(11/7);
 var ballpixel=canvas.width/7; // 볼(벽) 크기
 
