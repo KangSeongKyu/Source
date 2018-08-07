@@ -14,7 +14,7 @@ baImage.onload = function(){
     }else{
       baImage.src = "back5.png";
     }
-    gtx.drawImage(baImage,0,0,ganvas.width,ganvas.height);
+    gtx.drawImage(baImage,0,0,ganvas.width, ganvas.height);
 
     gtx.strokeStyle = 'white';
     gtx.font = '30px Bombardment';
@@ -34,49 +34,56 @@ baImage.onload = function(){
 ////////////////////////////////////////////////////////////////////////
 var canvas = document.getElementById("myCanvas");
 var ctx = canvas.getContext('2d');
+var backImage = new Image(); // 배경화면
+ backImage.src = "back.png";
+ backImage.onload = function(){
+    ctx.drawImage(backImage, 0, 0, canvas.width, canvas.height);
+ };
 ////////////////////////////////////////////////////////////////////////
 ganvas.width = window.innerWidth-10;
 ganvas.height = window.innerHeight-10;
 canvas.width = window.innerWidth-10;
-canvas.height = (canvas.width)*(11/7);
-var ballpixel=canvas.width/7; // 볼(벽) 크기
-
+canvas.height = (window.innerWidth-10)*(11/7);
 function drawCanvas(){
-  var gwidth, gheight, cwidth, cheight;
-  if(canvas.height>ganvas.height){
-    gwidth = ganvas.width;
-    gheight = ganvas.height;
-    cwidth = (canvas.width)*0.85;
-    cheight = (canvas.height)*0.85;
-
-    ganvas.width = gwidth;
-    ganvas.height = gheight;
-    canvas.width = cwidth;
-    canvas.height = cheight;
-
-    if(canvas.height>ganvas.height&&Math.abs(canvas.height-ganvas.height)<(canvas.height/11)){
-      drawCanvas();
-    }
-    ballpixel=canvas.width/7;
-  }else{
-    gwidth = ganvas.width;
-    gheight = ganvas.height;
-    cwidth = canvas.width;
-    cheight = canvas.height;
-    ballpixel=canvas.width/7;
-    
-    ganvas.width = gwidth;
-    ganvas.height = gheight;
-    canvas.width = cwidth;
-    canvas.height = cheight;
+    var gwidth, gheight, cwidth, cheight, margin_left;
+    if(canvas.height>=ganvas.height){
+        gwidth = ganvas.width;
+        gheight = ganvas.height;
+        cwidth = (canvas.width)*0.85;
+        cheight = (cwidth)*(11/7);
+        margin_left = (gwidth-cwidth)/2;
+        $('#myBack').css("width", gwidth);
+        $('#myBack').css("height", gheight);
+        $('#myCanvas').css("width", cwidth);
+        $('#myCanvas').css("height", cheight);
+        $('#myCanvas').css("margin-left", margin_left);
+    }else if(canvas.height<ganvas.height){
+        gwidth = ganvas.width;
+        gheight = ganvas.height;
+        cwidth = canvas.width;
+        cheight = canvas.height;
+        margin_left = (gwidth-cwidth)/2;
+        $('#myBack').css("width", gwidth);
+        $('#myBack').css("height", gheight);
+        $('#myCanvas').css("width", cwidth);
+        $('#myCanvas').css("height", cheight);
+        $('#myCanvas').css("margin-left", margin_left);
+    }else if(canvas.height<ganvas.height&&(16/9)<=(ganvas.height/ganvas.width)&&
+            (ganvas.height/ganvas.width)<(18/9)){
+      gwidth = ganvas.width;
+      gheight = ganvas.height;
+      cwidth = (window.innerWidth-10)*0.9;
+      cheight = ((window.innerWidth-10)*(0.9))*(11/7);
+      margin_left = (gwidth-cwidth)/2;
+      $('#myBack').css("width", gwidth);
+      $('#myBack').css("height", gheight);
+      $('#myCanvas').css("width", cwidth);
+      $('#myCanvas').css("height", cheight);
+      $('#myCanvas').css("margin-left", margin_left);
   }
-  return ganvas.width, ganvas.height, canvas.width, canvas.height, ballpixel;
 }
-drawCanvas();
-////////////////////////////////////////////////////////////////////////
-var margin_left = (ganvas.width - canvas.width)/2;
-$('#myCanvas').css("margin-left", margin_left);
 
+////////////////////////////////////////////////////////////////////////
 var tout; // setTimeout(detectCollision) 담는 변수
 var max; // 실행해서 나왔던 게임점수 중 가장 고득점 뽑는 변수
 var score = 0;
@@ -87,13 +94,10 @@ var point=0; // 점수
 var speed = 5; // 레이저 속도
 var px=5; //캐릭터 최초 시작 x축 지점
 var py=10; //캐릭터 최초 시작 y축 지점
+var ballpixel = (canvas.width)/7;
 ////////////////////////////////////////////////////////////////////////
 
-var backImage = new Image(); // 배경화면
- backImage.src = "back.png";
- backImage.onload = function(){
-    ctx.drawImage(backImage, 0, 0);
- };
+
 ////////////////////////////////////////////////////////////////////////
  var ball = {}; // 캐릭터
  ball.x = ballpixel*px;     
@@ -338,7 +342,7 @@ var render = function(){
       }else{
         baImage.src = "back5.png";
       }
-      gtx.drawImage(baImage,0,0,ganvas.width,ganvas.height);
+      gtx.drawImage(baImage,0,0,ganvas.width, ganvas.height);
     
       gtx.strokeStyle = 'white';
       gtx.font = '30px Bombardment';
@@ -355,7 +359,7 @@ var render = function(){
       gtx.fillText(score, (ganvas.width/2)+100, ganvas.height-20);//fixed
     }
       if(backReady){
-           ctx.drawImage(backImage, 0, 0);
+           ctx.drawImage(backImage, 0, 0, canvas.width, canvas.height);
       }
       if(wallReady){
           for (var y = 0; y < canvas.height-ballpixel+1; y=y+(ballpixel*2)) { 
@@ -533,6 +537,7 @@ addEventListener("keydown", function(e){
 ////////////////////////////////////////////////////////////////////////
 //게임 실행할 main 함수//
 var main = function(){
+  drawCanvas();
   if(!isGameOver){
     render();
   }
