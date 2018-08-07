@@ -2,7 +2,7 @@
 var ganvas = document.getElementById("myBack");
 var gtx = ganvas.getContext('2d');
 var baImage = new Image();
-baImage.src = "back1.png";
+baImage.src = "back.png";
 baImage.onload = function(){
     if(score>=0&&score<300){
       baImage.src = "back1.png";
