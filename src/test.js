@@ -534,6 +534,7 @@ addEventListener("keydown", function(e){
 //게임 실행할 main 함수//
 var main = function(){
   if(!isGameOver){
+    drawCanvas();
     render();
   }
   if(lives<2){
