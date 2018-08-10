@@ -40,10 +40,10 @@ var backImage = new Image(); // 배경화면
     ctx.drawImage(backImage, 0, 0, canvas.width, canvas.height);
  };
 ////////////////////////////////////////////////////////////////////////
-ganvas.width = 900;
-ganvas.height = 1600;
-canvas.width = 700;
-canvas.height = 1100;
+ganvas.width = window.screen.width-10;
+ganvas.height = window.screen.height-10;
+canvas.width = (window.screen.width-10)*(0.9);
+canvas.height = (window.screen.width-10)*(11/7)*(0.9);
 ////////////////////////////////////////////////////////////////////////
 var tout; // setTimeout(detectCollision) 담는 변수
 var max; // 실행해서 나왔던 게임점수 중 가장 고득점 뽑는 변수
