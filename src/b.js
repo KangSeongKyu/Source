@@ -41,7 +41,7 @@ var backImage = new Image(); // 배경화면
  };
 ////////////////////////////////////////////////////////////////////////
 ganvas.width = window.screen.width-10;
-ganvas.height = window.screen.height-10;
+ganvas.height = (window.screen.width-10)*(16/9);
 canvas.width = (window.screen.width-10)*(0.9);
 canvas.height = (window.screen.width-10)*(11/7)*(0.9);
 ////////////////////////////////////////////////////////////////////////
