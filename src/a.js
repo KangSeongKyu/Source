@@ -40,12 +40,66 @@ var backImage = new Image(); // 배경화면
     ctx.drawImage(backImage, 0, 0, canvas.width, canvas.height);
  };
 ////////////////////////////////////////////////////////////////////////
-ganvas.width = 900;
-ganvas.height = 1600;
-canvas.width = 700;
-canvas.height = 1100;
+ganvas.width = window.innerWidth-10;
+ganvas.height = window.innerHeight-10;
+canvas.width = window.innerWidth-10;
+canvas.height = (window.innerWidth-10)*(11/7);
 
-
+function drawCanvas(){
+    var gwidth, gheight, cwidth, cheight, margin_left;
+    if(canvas.height>=ganvas.height){
+        gwidth = ganvas.width;
+        gheight = ganvas.height;
+        cwidth = (window.innerWidth-10)*0.85;
+        cheight = (cwidth)*(11/7);
+        margin_left = (gwidth-cwidth)/2;
+        $('#myBack').css("width", gwidth);
+        $('#myBack').css("height", gheight);
+        $('#myCanvas').css("width", cwidth);
+        $('#myCanvas').css("height", cheight);
+        $('#myCanvas').css("margin-left", margin_left);
+        
+    }else if(canvas.height<ganvas.height&&(18/9)<=(ganvas.height/ganvas.width)&&
+            (ganvas.height/ganvas.width)<(18.5/9)){
+        gwidth = ganvas.width;
+        gheight = ganvas.height;
+        cwidth = window.innerWidth-10;
+        cheight = (cwidth)*(11/7);
+        margin_left = (gwidth-cwidth)/2;
+        $('#myBack').css("width", gwidth);
+        $('#myBack').css("height", gheight);
+        $('#myCanvas').css("width", cwidth);
+        $('#myCanvas').css("height", cheight);
+        $('#myCanvas').css("margin-left", margin_left);
+        
+        
+    }else if(canvas.height<ganvas.height&&(18.5/9)<=(ganvas.height/ganvas.width)){
+        gwidth = ganvas.width;
+        gheight = ganvas.height;
+        cwidth = window.innerWidth-10;
+        cheight = (cwidth)*(11/7);
+        margin_left = (gwidth-cwidth)/2;
+        $('#myBack').css("width", gwidth);
+        $('#myBack').css("height", gheight);
+        $('#myCanvas').css("width", cwidth);
+        $('#myCanvas').css("height", cheight);
+        $('#myCanvas').css("margin-left", margin_left);
+        
+        
+    }else if(canvas.height<ganvas.height&&(16/9)<=(ganvas.height/ganvas.width)&&
+            (ganvas.height/ganvas.width)<(18/9)){
+      gwidth = ganvas.width;
+      gheight = ganvas.height;
+      cwidth = (window.innerWidth-10)*0.9;
+      cheight = (cwidth)*(11/7);
+      margin_left = (gwidth-cwidth)/2;
+      $('#myBack').css("width", gwidth);
+      $('#myBack').css("height", gheight);
+      $('#myCanvas').css("width", cwidth);
+      $('#myCanvas').css("height", cheight);
+      $('#myCanvas').css("margin-left", margin_left);
+  }
+}
 ////////////////////////////////////////////////////////////////////////
 var tout; // setTimeout(detectCollision) 담는 변수
 var max; // 실행해서 나왔던 게임점수 중 가장 고득점 뽑는 변수
