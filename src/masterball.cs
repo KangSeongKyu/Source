@@ -2,207 +2,85 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-
-public class Circle : MonoBehaviour {
-
-    
-
-    public float speed = 3.0f;
-    public ParticleSystem explosion;
-    //public ParticleSystem explosion2;
-
-    private float direction = -1;
-
-    //public static int particleDirection2 = 0;
-
-    public ParticleSystem p;
-
-    public GameObject Replay;
-    public GameObject Next;
-    public GameObject Menu;
-    public GameObject Hang;
-    public GameObject Text;
-
-    public static float reverse = 0;
-    public static float reverse2 = 0;
-
-    
-    // Update is called once per frame
-
-    private void Start()
-    {
-        
+using GoogleMobileAds.Api;
+public class StageController : MonoBehaviour {
+    // Use this for initialization
+    void Start () {
+        Screen.SetResolution(Screen.width, Screen.width * 1000 / 1900, true);
     }
-
+    // Update is called once per frame
     void Update () {
 
-
-        
-        
-        if (Input.GetButtonDown("Fire1"))
+        if (Application.platform == RuntimePlatform.Android)
         {
-            Audio2.instance.PlaySound_ballTap();
-            if (reverse == 0)
+            if (Input.GetKey(KeyCode.Escape))
             {
-                direction++;
+                //배너삭제
+                AdmobManager.instance.HideBannerAd();
+                Audio2.instance.PlaySound_buttonTap(); // 소리
 
+                if (SceneManager.GetActiveScene().buildIndex>=5 && SceneManager.GetActiveScene().buildIndex <= 19)
+                {
+                    SceneManager.LoadScene(2);
+                }else if (SceneManager.GetActiveScene().buildIndex >= 20 && SceneManager.GetActiveScene().buildIndex <= 34)
+                {
+                    SceneManager.LoadScene(3);
+                }
+                else if (SceneManager.GetActiveScene().buildIndex >= 35 && SceneManager.GetActiveScene().buildIndex <= 49)
+                {
+                    SceneManager.LoadScene(4);
+                }
             }
-            else if (reverse == 1)
-            {
-                direction = 3 - direction;
-                reverse2++;
-                reverse2 = reverse2%2;
-                reverse = 0;
-                
-            }
-            
-            p.Play();
-            
-            if (direction == 4)
-            {
-                direction = 0;
-            }
-
-            
         }
-        BallControll();
-
-
     }
 
-    void BallControll()
+    public void RePlay()
     {
-        if(reverse2 == 0)
-        {
-            if (direction == 0)
-            {
 
-                transform.Translate(1 * speed * Time.deltaTime, 0, 0);
-            }
-            else if (direction == 1)
-            {
+        AdmobManager.instance.HideBannerAd();
 
-                transform.Translate(0, -1 * speed * Time.deltaTime, 0);
-            }
-            else if (direction == 2)
-            {
-                transform.Translate(-1 * speed * Time.deltaTime, 0, 0);
-            }
-            else if (direction == 3)
-            {
-                transform.Translate(0, 1 * speed * Time.deltaTime, 0);
-            }
-            else
-            {
-                p.Stop();
-            }
-        }
-        else if(reverse2 ==1)
-        {
-            if (direction == 0)
-            {
+        Audio2.instance.PlaySound_buttonTap();
 
-                transform.Translate(-1 * speed * Time.deltaTime, 0, 0); //0
-            }
-            else if (direction == 1)
-            {
-
-                transform.Translate(0, -1 * speed * Time.deltaTime, 0); //0
-            }
-            else if (direction == 2)
-            {
-                transform.Translate(1 * speed * Time.deltaTime, 0, 0); //-
-            }
-            else if (direction == 3)
-            {
-                transform.Translate( 0, 1 * speed * Time.deltaTime, 0); //-
-            }
-            else
-            {
-                p.Stop();
-            }
-        }
-        
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
-   
-    void OnCollisionEnter2D(Collision2D collision)
+    public void Next()
     {
 
-        if (collision.collider.tag == "Complete")
-        {
+        AdmobManager.instance.HideBannerAd();
 
-            Audio2.instance.PlaySound_success();
+        Audio2.instance.PlaySound_buttonTap();
 
-            ////////////////광고////////////////////
-            AdmobManager.instance.ShowBannerAd();
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex+1);
+    }
 
-            TextSizeAnimate.message = "GREAT";
-            
-            p.Stop();            
+    public void Menu()
+    {
 
-            reverse = 0;
-            reverse2 = 0;
+        AdmobManager.instance.HideBannerAd();
 
-            Text.SetActive(true);
-            Next.SetActive(true);
-            Replay.SetActive(true);
-            Menu.SetActive(true);
-            Hang.SetActive(true);
-            Destroy(transform.gameObject);
-            ///////////////////////////////////////////////////////////////
-            if (TitleController.stage< SceneManager.GetActiveScene().buildIndex - 4)
-            {
-                
-                TitleController.stage = SceneManager.GetActiveScene().buildIndex - 4;
-                PlayerPrefs.SetFloat("HighScore2",TitleController.stage) ;
 
-            }
-           
-        }
-        else if (collision.collider.tag == "Key")
-        {
-            Destroy(collision.gameObject);
-        }
-        else if (collision.collider.tag == "Reverse")
-        {
+        Audio2.instance.PlaySound_buttonTap();
 
-            Destroy(collision.gameObject);
-            
-            if (reverse == 0)
-            {
-                reverse++;
-            }
-            
-        }else if (collision.collider.tag == "SpeedUp")
-        {
-            Destroy(collision.gameObject);
-            speed *= 1.5f;
-        }
-        else if (collision.collider.tag == "SpeedDown")
-        {
-            Destroy(collision.gameObject);
-            speed /= 1.5f;
-        }
-        else
-        {
-            Audio2.instance.PlaySound_fail();
+        SceneManager.LoadScene(2);
+    }
 
-            Instantiate(explosion, this.transform.position, Quaternion.identity);
 
-            AdmobManager.instance.ShowBannerAd();
+    public void Menu2()
+    {
+        AdmobManager.instance.HideBannerAd();
 
-            
-            reverse = 0;
-            reverse2 = 0;
-            Destroy(transform.gameObject);
-            TextSizeAnimate.message = "FAIL";
-            
+        Audio2.instance.PlaySound_buttonTap();
 
-            Text.SetActive(true);
-            Hang.SetActive(true);
-            Menu.SetActive(true);
-            Replay.SetActive(true);
-        } 
-   }
+        SceneManager.LoadScene(3);
+    }
+
+    public void Menu3()
+    {
+        AdmobManager.instance.HideBannerAd();
+
+        Audio2.instance.PlaySound_buttonTap();
+
+        SceneManager.LoadScene(4);
+    }
 }
